@@ -94,7 +94,7 @@ const branchData = [
 const Locations = () => {
     const [activeTab, setActiveTab] = useState(branchData[0].country); // Set default active tab to the first country
 
-    const openTab = (tabName) => {
+    const openTab = (tabName: string) => {
         setActiveTab(tabName);
     };
 

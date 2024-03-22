@@ -1,19 +1,3 @@
-
-// import React from 'react';
-// import { useRouter } from 'next/router';
-
-// export default function Branch() {
-//     const router = useRouter();
-//     const { location } = router.query;
-//     console.log(location)
-
-//     return (
-//         <div>
-//             <h1>BranchDetails</h1>
-//             <h3>Hello {location}</h3>
-//         </div>
-//     );
-// }
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -23,19 +7,13 @@ const bnr = '/images/background/bg10.jpg';
 const Branch = () => {
     const router = useRouter();
     const { location } = router.query;
-    const branch = Branches.find(branch => {
-        return branch.states.some(state => {
-            return state.cities.includes(location);
-        });
-        
-    });
-    console.log("branch",branch)
+
     const [timerDays, setTimerDays] = useState('00');
     const [timerHours, setTimerHours] = useState('00');
     const [timerMinutes, setTimerMinutes] = useState('00');
     const [timerSeconds, setTimerSeconds] = useState('00');
 
-    const intervalRef = useRef();
+    const intervalRef = useRef<NodeJS.Timeout | undefined>();
 
     const startTimer = () => {
         const WebsiteLaunchDate = new Date();
@@ -51,7 +29,7 @@ const Branch = () => {
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             if (distance < 0) {
-                clearInterval(intervalRef.current);
+                clearInterval(intervalRef.current!);
             } else {
                 setTimerDays(days.toString().padStart(2, '0'));
                 setTimerHours(hours.toString().padStart(2, '0'));
@@ -64,7 +42,7 @@ const Branch = () => {
     useEffect(() => {
         startTimer();
         return () => {
-            clearInterval(intervalRef.current);
+            clearInterval(intervalRef.current!);
         };
     }, []);
 
@@ -79,15 +57,10 @@ const Branch = () => {
                         <div className="countdown">
                             <div className="branchName">
                                 <span className="time days text-primary">{location}</span>
-
                             </div>
-
-
-
                         </div>
                     </div>
                     <div className="coming-head w-100 text-center ">
-
                         <h2><strong>Coming soon</strong></h2>
                     </div>
                 </div>

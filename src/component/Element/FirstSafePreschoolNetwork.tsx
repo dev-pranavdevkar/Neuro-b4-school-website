@@ -14,7 +14,7 @@ export default function FirstSafePreschoolNetwork() {
             <div className="container">
                 <div className="section-head">
                     <h2 className="head-title text-secondry">World&apos;s First Safe Preschool Network</h2>
-                    <p>Fill your child's childhood with the joy of learning!</p>
+                    <p>Fill your child&apos;s childhood with the joy of learning!</p>
                 </div>
                 <div className="row">
                     {iconBlog.map((data, index) => (
@@ -25,7 +25,7 @@ export default function FirstSafePreschoolNetwork() {
                                         <img src={data.image} alt="" /></Link>
                                 </div>
                                 <div className="icon-content">
-                                    <h6 className="dlab-tilte">{data.title1}<br />{data.title2}</h6>
+                                    <h6 className="dlab-tilte">{data.title1}</h6>
                                 </div>
                             </div>
                         </div>

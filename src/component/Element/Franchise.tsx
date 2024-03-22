@@ -65,49 +65,49 @@ const Franchise = () => {
 
             <div className="row contact-box content-inner-5">
                 <div className="section-head text-center col-md-12">
-                    <h2 className="text-secondry">Join World's Leading Pre-school Today!</h2>
+                    <h2 className="text-secondry">Join World&apos;s Leading Pre-school Today!</h2>
                     <p className="m-b0">Take the first step towards building a successful business with our Preschool Franchise Opportunity.</p>
                 </div>
                 <div className="dzFormMsg"></div>
-                <form method="post" className="dzForm col-md-12" ref={form} onSubmit={handleSubmit(onSubmit)} >
+                <form method="post" className="dzForm col-md-12" onSubmit={handleSubmit(onSubmit)} >
                     <input type="hidden" value="Contact" name="dzToDo" />
                     <div className="row">
                         <div className="col-md-4 col-sm-4">
                             <div className="form-group">
                                 <input type="text"
                                     {...register('name')} className="form-control" placeholder="Enter your name" />
-                                {errors?.name && <small style={{ color: 'red' }}>{errors?.name?.message}</small>}
+                                {/* {errors?.name && <small style={{ color: 'red' }}>{errors?.name?.message}</small>} */}
                             </div>
                         </div>
                         <div className="col-md-4 col-sm-4">
                             <div className="form-group">
                                 <input {...register('email')} type="email" className="form-control" placeholder="Your Email Address" />
-                                {errors?.email && <small style={{ color: 'red' }}>{errors?.email?.message}</small>}
+                                {/* {errors?.email && <small style={{ color: 'red' }}>{errors?.email?.message}</small>} */}
 
                             </div>
                         </div>
                         <div className="col-md-4 col-sm-4">
                             <div className="form-group">
                                 <input {...register('contact_number')} type="text" className="form-control" placeholder="Phone" />
-                                {errors?.contact_number && <small style={{ color: 'red' }}>{errors?.contact_number?.message}</small>}
+                                {/* {errors?.contact_number && <small style={{ color: 'red' }}>{errors?.contact_number?.message}</small>} */}
                             </div>
                         </div>
                         <div className="col-md-4 col-sm-4">
                             <div className="form-group">
                                 <input {...register('country_name')} type="text" className="form-control" placeholder="Enter Country name" />
-                                {errors?.country_name && <small style={{ color: 'red' }}>{errors?.country_name?.message}</small>}
+                                {/* {errors?.country_name && <small style={{ color: 'red' }}>{errors?.country_name?.message}</small>} */}
                             </div>
                         </div>
                         <div className="col-md-4 col-sm-4">
                             <div className="form-group">
                                 <input {...register('state_name')} type="text" className="form-control" placeholder="Enter State Name" />
-                                {errors?.state_name && <small style={{ color: 'red' }}>{errors?.state_name?.message}</small>}
+                                {/* {errors?.state_name && <small style={{ color: 'red' }}>{errors?.state_name?.message}</small>} */}
                             </div>
                         </div>
                         <div className="col-md-4 col-sm-4">
                             <div className="form-group">
                                 <input {...register('city_name')} type="text" className="form-control" placeholder="Enter City Name" />
-                                {errors?.city_name && <small style={{ color: 'red' }}>{errors?.city_name?.message}</small>}
+                                {/* {errors?.city_name && <small style={{ color: 'red' }}>{errors?.city_name?.message}</small>} */}
                             </div>
                         </div>
                   

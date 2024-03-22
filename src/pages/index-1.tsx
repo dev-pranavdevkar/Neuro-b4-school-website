@@ -142,7 +142,7 @@ function EducationBanner() {
 						<div className="col-lg-6 col-md-12 col-sm-12 col-12">
 							<div className="section-head">
 								<h2 className="head-title text-yellow">Education from birth<br />begins with us</h2>
-								<p className="text-white">Our children's academy, together with one of the oldest private schools, created a joint school preparation project. The goal of the project is the harmonious development, socializationfor admission to the best educational institutions of our city.</p>
+								<p className="text-white">Our children&apos;s academy, together with one of the oldest private schools, created a joint school preparation project. The goal of the project is the harmonious development, socializationfor admission to the best educational institutions of our city.</p>
 							</div>
 						</div>
 						<div className="col-lg-6 col-md-6 col-sm-12 col-12"></div>

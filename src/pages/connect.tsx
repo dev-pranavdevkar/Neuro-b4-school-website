@@ -7,15 +7,15 @@ const Connect = () => {
     const [timerHours, setTimerHours] = useState('00');
     const [timerMinutes, setTimerMinutes] = useState('00');
     const [timerSeconds, setTimerSeconds] = useState('00');
-    let interval = useRef();
+    let interval = useRef<NodeJS.Timeout>();
+    
     const startTimer = () => {
         /* Website Launch Date */
-        var WebsiteLaunchDate = new Date();
-        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        WebsiteLaunchDate.setMonth(WebsiteLaunchDate.getMonth() + 1);
-        WebsiteLaunchDate = WebsiteLaunchDate.getDate() + " " + monthNames[WebsiteLaunchDate.getMonth()] + " " + WebsiteLaunchDate.getFullYear();
-        const countdownDate = new Date(WebsiteLaunchDate + ' 23:5').getTime();
-        interval = setInterval(() => {
+        const WebsiteLaunchDate = new Date();
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const formattedLaunchDate = WebsiteLaunchDate.getDate() + " " + monthNames[WebsiteLaunchDate.getMonth()] + " " + WebsiteLaunchDate.getFullYear();
+        const countdownDate = new Date(formattedLaunchDate + ' 23:5').getTime();
+        interval.current = setInterval(() => {
             const now = new Date().getTime();
             const distance = countdownDate - now;
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -24,29 +24,30 @@ const Connect = () => {
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             if (distance < 0) {
-                if (interval.current !== 'undefined') {
-                    //stop our timer
+                if (interval.current !== undefined) {
+                    // Stop the timer
                     clearInterval(interval.current);
                 }
             } else {
-                //update timer
-                setTimerDays(days);
-                setTimerHours(hours);
-                setTimerMinutes(minutes);
-                setTimerSeconds(seconds);
+                // Update the timer
+                setTimerDays(days.toString().padStart(2, '0'));
+                setTimerHours(hours.toString().padStart(2, '0'));
+                setTimerMinutes(minutes.toString().padStart(2, '0'));
+                setTimerSeconds(seconds.toString().padStart(2, '0'));
             }
         }, 1000);
     };
 
-    //componentDidMount
+    // ComponentDidMount
     useEffect(() => {
         startTimer();
         return () => {
-            /* if(interval.current !== 'undefined') {
+            if (interval.current !== undefined) {
                 clearInterval(interval.current);
-            } */
+            }
         };
-    });
+    }, []);
+
     return (
         <Fragment>
             <div className="content-block">
@@ -66,11 +67,11 @@ const Connect = () => {
                             </div>
                             <div className="date">
                                 <span className="time mins text-primary">{timerMinutes}</span>
-                                <div><strong>Minutess</strong></div>
+                                <div><strong>Minutes</strong></div>
                             </div>
                             <div className="date">
                                 <span className="time secs text-primary">{timerSeconds}</span>
-                                <div><strong>Second</strong></div>
+                                <div><strong>Seconds</strong></div>
                             </div>
                         </div>
                     </div>
@@ -79,8 +80,8 @@ const Connect = () => {
                         <h2><strong>Coming soon</strong></h2>
 
                         {/* <div className="button-home">
-							<Link href={"./"} className="btn btn-lg radius-xl"><i className="fa fa-home mr-1"></i>Home</Link>
-						</div> */}
+                            <Link href={"./"} className="btn btn-lg radius-xl"><i className="fa fa-home mr-1"></i>Home</Link>
+                        </div> */}
                     </div>
                 </div>
             </div>
