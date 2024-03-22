@@ -31,7 +31,7 @@ export default function WhyIsEarlyChildhoodEducationImportant() {
                             <div className="row">
 
                                 {reasonsData.map((item, index) => (
-                                    <div className="col-lg-4 col-md-12 col-sm-12 col-12 mb-4">
+                                    <div className="col-lg-4 col-md-12 col-sm-12 col-12 mb-4" key={index}>
                                         <div className="card reason-card h-100">
                                             <div className="card-body">
                                             <div className="icon-bx-wraper left" key={index}>

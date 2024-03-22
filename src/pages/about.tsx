@@ -31,14 +31,14 @@ const imagesLoadedOptions = { background: '.my-bg-image-el' }
 // Masonry section end
 
 //Light Gallery Icon
-const Iconimage = props => {
-	const { openLightbox } = useLightbox()
-	return (
-		<Link href={"#"} onClick={() => openLightbox(props.imageToOpen)} className="" >
-			<i className="fa fa-search icon-bx-xs"></i>
-		</Link>
-	)
-}
+// const Iconimage = props => {
+// 	const { openLightbox } = useLightbox()
+// 	return (
+// 		<Link href={"#"} onClick={() => openLightbox(props.imageToOpen)} className="" >
+// 			<i className="fa fa-search icon-bx-xs"></i>
+// 		</Link>
+// 	)
+// }
 const galleryBlog = [
 	{ image: gallery1 },
 	{ image: gallery2 },
@@ -98,12 +98,14 @@ function BackgroundBlog2() {
 
 class About extends Component {
 	componentDidMount() {
-		var splitBox = document.querySelectorAll('.split-box');
-
-		var fSB = [].slice.call(splitBox);
-
+		var splitBox = document.querySelectorAll('.split-box') as NodeListOf<Element>;
+	
+		var fSB = Array.from(splitBox);
+	
 		fSB.forEach(el => el.classList.add('split-active'));
 	}
+	
+	
 	render() {
 		return (
 			<Fragment>
@@ -120,36 +122,7 @@ class About extends Component {
 											<p>B4-School, is a premier learning center that fosters a nurturing and engaging learning environment for young children. Our experienced educators understand the unique ways in which children learn and are dedicated to creating programs that stimulate curiosity and encourage intellectual growth</p>
 											<p>At B4-School, we believe in maximizing each child&apos;s potential through tailored educational experiences that inspire a lifelong love for learning.</p>
 										</div>
-										{/* <div className=''>
-											<div className="card vm-card">
-												<div className="card-body">
-													<div className='row'>
-														<div className='col-4'></div>
-														<div className='col-8'>
-															<div>
-																<h4 className='card-title'>VISION</h4>
-																<p className='mb-0'>Education is the passport to the world.
-																	No child should fall behind academically.</p>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div className="card vm-card">
-												<div className="card-body">
-													<div className='row'>
-														<div className='col-4'></div>
-														<div className='col-8'>
-															<div>
-																<h4 className='card-title'>MISSION</h4>
-																<p className='mb-0'>We strive to provide a safe and learning environment for preschool age children to reach their maximum potential.</p>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div> */}
-										{/* <AccordionBlog /> */}
+										
 									</div>
 									<div className="col-lg-6 col-md-12 col-sm-12 teacher-content">
 										<div className="split-box">
@@ -161,48 +134,7 @@ class About extends Component {
 								</div>
 							</div>
 						</div>
-						{/* <div className="section-full bg-white content-inner-2 about-content bg-img-fix" style={{ backgroundImage: "url(" + bnr2 + ")" }}>
-							<BackgroundBlog />
-						</div> */}
-						{/*  Portfolio  */}
-						{/* <div className="section-full content-inner">
-							<div className="container">
-								<div className="section-head text-center">
-									<h2 className="head-title text-secondry">Gallery of our classes</h2>
-									<p>We provide three classes with nine to twenty children each aged twelve months to six years of age.</p>
-								</div>
-								<SimpleReactLightbox>
-									<SRLWrapper>
-										<div className="clearfix" id="lightgallery">
-											<ul id="masonry" className="dlab-gallery-listing gallery-grid-4 gallery">
-												<Masonry
-													className={'my-gallery-class'}
-													options={masonryOptions}
-													disableImagesLoaded={false}
-													updateOnEachImageLoad={false}
-													imagesLoadedOptions={imagesLoadedOptions} // default {}
-												>
-													{galleryBlog.map((data, index) => (
-														<li className="web design custom-position card-container col-lg-4 col-md-6 col-sm-6 " key={index}>
-															<div className="dlab-box frame-box m-b30">
-																<div className="dlab-thum dlab-img-overlay1">
-																	<img src={data.image} alt="" />
-																	<div className="overlay-bx">
-																		<div className="overlay-icon">
-																			<Iconimage />
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</li>
-													))}
-												</Masonry>
-											</ul>
-										</div>
-									</SRLWrapper>
-								</SimpleReactLightbox>
-							</div>
-						</div> */}
+					
 						<div className="section-full bg-white content-inner-2 about-content bg-img-fix" style={{ backgroundImage: "url(" + bnr3 + ")" }}>
 							<BackgroundBlog2 />
 						</div>

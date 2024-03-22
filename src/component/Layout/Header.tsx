@@ -7,28 +7,28 @@ import logo from '../images/logo.png'
 
 
 class Header extends Component {
-	componentDidMount() {
-		// sidebar open/close
-		let Navicon = document.querySelector('.navicon');
-		let sidebarmenu = document.querySelector('.myNavbar ');
+	// componentDidMount() {
+	// 	// sidebar open/close
+	// 	let Navicon = document.querySelector('.navicon');
+	// 	let sidebarmenu = document.querySelector('.myNavbar ');
 
-		function toggleFunc() {
-			sidebarmenu.classList.toggle('show');
-			Navicon.classList.toggle('open');
-		}
-		Navicon.addEventListener('click', toggleFunc);
-		// Sidenav li open close
-		let navUl = [].slice.call(document.querySelectorAll('.navbar-nav > li'));
-		for (var y = 0; y < navUl.length; y++) {
-			navUl[y].addEventListener('click', function () { checkLi(this) });
-		}
-		function checkLi(current) {
-			navUl.forEach(el => (current !== el) ? el.classList.remove('open') : '');
-			setTimeout(() => {
-				current.classList.toggle('open');
-			}, 100);
-		}
-	}
+	// 	function toggleFunc() {
+	// 		sidebarmenu.classList.toggle('show');
+	// 		Navicon.classList.toggle('open');
+	// 	}
+	// 	Navicon.addEventListener('click', toggleFunc);
+	// 	// Sidenav li open close
+	// 	let navUl = [].slice.call(document.querySelectorAll('.navbar-nav > li'));
+	// 	for (var y = 0; y < navUl.length; y++) {
+	// 		navUl[y].addEventListener('click', function () { checkLi(this) });
+	// 	}
+	// 	function checkLi(current) {
+	// 		navUl.forEach(el => (current !== el) ? el.classList.remove('open') : '');
+	// 		setTimeout(() => {
+	// 			current.classList.toggle('open');
+	// 		}, 100);
+	// 	}
+	// }
 	render() {
 		return (
 			<Fragment>

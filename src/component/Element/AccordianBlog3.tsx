@@ -10,7 +10,7 @@ const AccordionBlog3 = () => {
 			{defaultAccordion.map((d, i) => (
 			   <Card key={i}>
 					<div className="card-header ">
-						<Accordion.Toggle as={Link} variant="link" href={"#"}
+						<Accordion.Toggle as={Link}  href={"#"}
 							className={` ${ activeDefault === i ? '' : 'collapsed'}`}
 							onClick={() =>
 								setActiveDefault(activeDefault === i ? -1 : i)

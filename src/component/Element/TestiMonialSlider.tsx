@@ -26,24 +26,31 @@ const latestBlog = [
 	{ image: lora, name: 'Sandhya Salunkhe', containt: "The school members and the faculties are doing a great job. The facilities are very good for children. I personally like B4-School because the quality of education is too good. Thank you for giving good quality education and support for children.", city: 'Pune,Maharashtra' },
 	{ image: bob, name: 'Sourabh Khot', containt: "B4-School The International School, BTM, is one of the best schools in Pune. The staff and teachers are very polite. My overall experience has been very good with B4-School BTM. My children love the activities and they are doing very well in their academics.", city: 'Pune,Maharashtra' },
 ]
-class TestiMonialSlider extends Component {
-	constructor(props) {
+
+class TestiMonialSlider extends Component<{}> {
+    slider: Slider | null = null; // Declare slider property and initialize it to null
+
+	constructor(props: {}) {
 		super(props);
 		this.next = this.next.bind(this);
 		this.previous = this.previous.bind(this);
 	}
 	next() {
-		this.slider.slickNext();
+		if (this.slider) {
+			this.slider.slickNext();
+		}
 	}
 	previous() {
-		this.slider.slickPrev();
+		if (this.slider) {
+			this.slider.slickPrev();
+		}
 	}
 	render() {
 		var settings = {
 			arrows: false,
 			slidesToShow: 1,
 			infinite: true,
-			autoPlay: true,
+			// autoPlay: true,
 			responsive: [
 				{
 					breakpoint: 1200,

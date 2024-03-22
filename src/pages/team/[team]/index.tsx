@@ -1,20 +1,3 @@
-
-// import React from 'react';
-// import { useRouter } from 'next/router';
-
-// export default function TeamMember() {
-//     const router = useRouter();
-//     const { team } = router.query;
-//     console.log(team)
-
-//     return (
-//         <div>
-//             <h1>BranchDetails</h1>
-//             <h3>Hello {team}</h3>
-//         </div>
-//     );
-// }
-
 import React, { Fragment, useRef } from 'react';
 import emailjs from 'emailjs-com';
 import Link from 'next/link';
@@ -49,21 +32,25 @@ const TeamMember = () => {
                             <div className="row">
                                 <div className="col-lg-6 col-md-12 col-sm-12 m-b15">
                                     <div className="teacher-meida">
-                                        <img src={member.image} alt="" />
+                                        {member && <img src={member.image} alt="" />}
                                     </div>
                                 </div>
                                 <div className="col-lg-6 col-md-12 col-sm-12 teacher-content align-self-center">
-                                    <h2 className="teacher-title">{member.name}</h2>
-                                    <span className="teacher-coures">{member.role}</span>
-                                    <p className="m-b15">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn.</p>
-                                    <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-                                    <ul className="list-inline">
-                                        <li><Link href={"#"} ><i className="fa fa-facebook"></i></Link></li>
-                                        <li><Link href={"#"} ><i className="fa fa-google-plus"></i></Link></li>
-                                        <li><Link href={"#"} ><i className="fa fa-linkedin"></i></Link></li>
-                                        <li><Link href={"#"} ><i className="fa fa-instagram"></i></Link></li>
-                                        <li><Link href={"#"} ><i className="fa fa-twitter"></i></Link></li>
-                                    </ul>
+                                    {member && (
+                                        <>
+                                            <h2 className="teacher-title">{member.name}</h2>
+                                            <span className="teacher-coures">{member.role}</span>
+                                            <p className="m-b15">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don&apos;t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn.</p>
+                                            <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn&apos;t anything embarrassing hidden in the middle of text.</p>
+                                            <ul className="list-inline">
+                                                <li><Link href={"#"} ><i className="fa fa-facebook"></i></Link></li>
+                                                <li><Link href={"#"} ><i className="fa fa-google-plus"></i></Link></li>
+                                                <li><Link href={"#"} ><i className="fa fa-linkedin"></i></Link></li>
+                                                <li><Link href={"#"} ><i className="fa fa-instagram"></i></Link></li>
+                                                <li><Link href={"#"} ><i className="fa fa-twitter"></i></Link></li>
+                                            </ul>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -123,6 +110,5 @@ const TeamMember = () => {
         </Fragment>
     )
 }
-
 
 export default TeamMember;

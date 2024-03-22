@@ -18,7 +18,8 @@ class BannerSlider extends Component{
 				indicators= {false}
 				controls={true}
 				className="owl-slider owl-carousel owl-theme owl-btn-center-lr dots-none" 
-				autoPlay={true}
+				// autoplay={true}
+				
 			>
 				{carouselBlog.map((item,index)=>(	
 					<Carousel.Item key={index}>
@@ -28,7 +29,7 @@ class BannerSlider extends Component{
 								<div className="slide-content-box container">
 									<div className="slide-content-area">
 										<h2 className="slider-title">Children Academy <span>First ReseaArchers</span></h2>
-										<p>Children's Academy will provide a stimulating and safe environment for children ages three month</p>
+										<p>Children&apos;s Academy will provide a stimulating and safe environment for children ages three month</p>
 										<Link href={"./contect-us"} className="btn btn-md kids-btn radius-xl">Join us</Link>
 									</div>
 								</div>
