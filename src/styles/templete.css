@@ -242,8 +242,7 @@
 }
 .team-frame2 img{
 	-webkit-mask-image: url(/images/team/team-bg2.png);
-    mask-image: url(/images/team/team-bg2.png)
-}
+    mask-image: url(/images/team/team-bg2.png
 .team-frame3 img{
 	-webkit-mask-image: url(/images/team/team-bg3.png);
     mask-image: url(/images/team/team-bg3.png);
