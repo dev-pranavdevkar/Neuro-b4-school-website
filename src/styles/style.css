@@ -1557,9 +1557,9 @@ dl dd {
     background-color: transparent;
 }
 
-.bg-primary {
+/* .bg-primary {
     background-color: ;
-}
+} */
 
 .bg-white {
     background-color: #FFF;
@@ -5232,7 +5232,7 @@ blockquote:before {
 .owl-theme .owl-dots .owl-dot {
     display: inline-block;
     zoom: 1;
-    *display: inline;
+    display: inline;
 }
 
 .owl-theme .owl-dots .owl-dot span {
@@ -7079,7 +7079,7 @@ ol.comment-list li.comment .comment-respond .comment-form p {
 
 .widget-testimonial .testimonial-position {
     text-transform: uppercase;
-    color: #888q;
+    color: #888;
     font-size: 12px;
     font-style: inherit;
 }
@@ -8376,7 +8376,7 @@ button:focus {
 .btn-link.yellow:hover,
 .btn-link.yellow:active,
 .btn-link.yellow:focus {
-    color: ##d4af19;
+    color: #d4af19;
 }
 
 /* purple */
@@ -11020,7 +11020,7 @@ ul[class*="list-"] {
 .testimonial-9 .testimonial-position,
 .testimonial-10 .testimonial-position {
     text-transform: uppercase;
-    color: #888q;
+    color: #888;
     font-size: 12px;
     font-style: inherit;
 }
@@ -11761,12 +11761,12 @@ ul[class*="list-"] {
     background: #FFF;
 }
 
-.overlay-primary-light:after,
+/* .overlay-primary-light:after,
 .overlay-primary-middle:after,
 .overlay-primary-dark:after,
 .overlay-primary:after {
     background: ;
-}
+} */
 
 .overlay-black-light:after {
     opacity: 0.3;
