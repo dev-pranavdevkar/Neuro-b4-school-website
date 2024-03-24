@@ -1557,9 +1557,9 @@ dl dd {
     background-color: transparent;
 }
 
-.bg-primary {
+/* .bg-primary {
     background-color: ;
-}
+} */
 
 .bg-white {
     background-color: #FFF;
@@ -11761,12 +11761,12 @@ ul[class*="list-"] {
     background: #FFF;
 }
 
-.overlay-primary-light:after,
+/* .overlay-primary-light:after,
 .overlay-primary-middle:after,
 .overlay-primary-dark:after,
 .overlay-primary:after {
     background: ;
-}
+} */
 
 .overlay-black-light:after {
     opacity: 0.3;
