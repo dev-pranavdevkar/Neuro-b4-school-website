@@ -1,14 +1,45 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  webpack: (config, { dev, isServer }) => {
-    // Add webpack configurations here
-    // Example: Add a custom alias for directories
-    config.resolve.alias['@components'] = path.resolve(__dirname, 'components');
+/* eslint-disable @typescript-eslint/no-var-requires */
+const path = require('path')
 
-    // Return the modified webpack config
-    return config;
+/** @type {import('next').NextConfig} */
+
+// Remove this if you're not using Fullcalendar features
+// const withTM = require('next-transpile-modules')([
+//   '@fullcalendar/common',
+//   '@fullcalendar/react',
+//   '@fullcalendar/daygrid',
+//   '@fullcalendar/list',
+//   '@fullcalendar/timegrid'
+// ])
+
+module.exports = {
+  i18n: {
+    locales: ['en-US', 'fr', 'es'],
+    defaultLocale: 'en-US',
+  },
+};
+
+
+module.exports ={
+  trailingSlash: true,
+  reactStrictMode: false,
+  experimental: {
+    esmExternals: false
+  },
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  webpack: config => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      apexcharts: path.resolve(__dirname, './node_modules/apexcharts-clevision')
+    }
+
+    return config
   }
 }
-
-module.exports = nextConfig;
