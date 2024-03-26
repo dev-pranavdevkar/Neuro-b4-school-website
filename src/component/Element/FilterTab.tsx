@@ -102,6 +102,7 @@ function FilterTab() {
                                 </div>
                             ))}
                         {/* </Masonry> */}
+                        {/* Masonry issue solved */}
                     </div>
                 </SRLWrapper>
             </SimpleReactLightbox>
