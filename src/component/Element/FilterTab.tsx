@@ -77,7 +77,7 @@ function FilterTab() {
             </div>
             <SimpleReactLightbox>
                 <SRLWrapper >
-                    <ul className="dlab-gallery-listing gallery-grid-4 gallery mfp-gallery" data-wow-duration="2s" data-wow-delay="0.2s">
+                    <div className="row dlab-gallery-listing gallery-grid-4 gallery mfp-gallery" data-wow-duration="2s" data-wow-delay="0.2s">
                         {/* <Masonry
                             className={'my-gallery-class'} // Masonry component
                             options={masonryOptions}
@@ -87,7 +87,7 @@ function FilterTab() {
                         > */}
                             {/* Render filtered images */}
                             {filteredImages.map((item, index) => (
-                                <li className="Art card-container col-lg-3 col-md-6 col-sm-6 wow zoomIn" key={index}>
+                                <div className="Art card-container col-lg-3 col-md-6 col-sm-6 wow zoomIn" key={index}>
                                     <div className="dlab-box frame-box m-b30">
                                         <div className="dlab-thum dlab-img-overlay1">
                                             <img src={item.Large_img} alt="" />
@@ -99,10 +99,10 @@ function FilterTab() {
                                             </div>
                                         </div>
                                     </div>
-                                </li>
+                                </div>
                             ))}
                         {/* </Masonry> */}
-                    </ul>
+                    </div>
                 </SRLWrapper>
             </SimpleReactLightbox>
         </div>
