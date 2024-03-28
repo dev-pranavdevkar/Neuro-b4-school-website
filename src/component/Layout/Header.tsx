@@ -1,7 +1,8 @@
 import React, { Fragment, Component } from 'react';
 import Link from 'next/link';
 // import Image from 'next/image';
-
+import { Dropdown } from 'react-bootstrap';
+import { Branches } from '@/constants/db';
 //images
 import logo from '../images/logo.png'
 
@@ -29,7 +30,10 @@ class Header extends Component {
 	// 		}, 100);
 	// 	}
 	// }
+
 	render() {
+
+
 		return (
 			<Fragment>
 				<header className="site-header header mo-left">
@@ -38,6 +42,7 @@ class Header extends Component {
 							<div className="row d-flex justify-content-between">
 								<div className="dlab-topbar-left">
 									<ul>
+
 										<li><i className="fa fa-phone m-r5"></i> +1 (315) 402-1234</li>
 										<li><i className="fa fa-map-marker m-r5"></i>
 											28 Princeton Drive, Syosset,
@@ -45,9 +50,22 @@ class Header extends Component {
 									</ul>
 								</div>
 								<div className="dlab-topbar-right">
-									<ul>
+								<ul>
+										<li className='d-flex align-items-center'><i className="fa fa-globe m-r5"></i>
+											<Dropdown className='top-bar-dropdown'>
+												<Dropdown.Toggle className='btn btn-info'>
+													Location
+												</Dropdown.Toggle>
 
-										<li><i className="fa fa-clock-o m-r5"></i> We Prepare Preschoolers For School</li>
+												<Dropdown.Menu>
+													{Branches.map((item, index) => (
+														<Dropdown.Item href="/locations" key={index}>{item.country}</Dropdown.Item>
+													))}
+
+												</Dropdown.Menu>
+											</Dropdown>
+											</li>
+										{/* <li><i className="fa fa-clock-o m-r5"></i> We Prepare Preschoolers For School</li> */}
 									</ul>
 								</div>
 							</div>
@@ -150,7 +168,7 @@ class Header extends Component {
 					</div>
 					{/* Main header END */}
 				</header>
-			</Fragment>
+			</Fragment >
 		)
 	}
 }
