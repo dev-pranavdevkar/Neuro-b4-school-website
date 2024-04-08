@@ -140,9 +140,119 @@
 // export {AcademyBlog};
 // export default AboutUs2;
 import React from 'react'
-
+import { Dropdown } from 'react-bootstrap';
 export default function About2() {
+  const Branches = [
+    {
+      country: 'Country 1',
+      states: [
+        {
+          name: 'State 1',
+          cities: [
+            {
+              name: 'City 1',
+              regions: ['Region 1', 'Region 2']
+            },
+            {
+              name: 'City 2',
+              regions: ['Region 3', 'Region 4']
+            }
+          ]
+        },
+        {
+          name: 'State 2',
+          cities: [
+            {
+              name: 'City 3',
+              regions: ['Region 5', 'Region 6']
+            },
+            {
+              name: 'City 4',
+              regions: ['Region 7', 'Region 8']
+            }
+          ]
+        }
+      ]
+    },
+    {
+      country: 'Country 2',
+      states: [
+        {
+          name: 'State 1',
+          cities: [
+            {
+              name: 'City 1',
+              regions: ['Region 1', 'Region 2']
+            },
+            {
+              name: 'City 2',
+              regions: ['Region 3', 'Region 4']
+            }
+          ]
+        },
+        {
+          name: 'State 2',
+          cities: [
+            {
+              name: 'City 3',
+              regions: ['Region 5', 'Region 6']
+            },
+            {
+              name: 'City 4',
+              regions: ['Region 7', 'Region 8']
+            }
+          ]
+        }
+      ]
+    }
+  ];
   return (
-	<div>about-2</div>
+    <>
+      <h1>Hello</h1>
+      <Dropdown className='top-bar-dropdown'>
+        <Dropdown.Toggle className='btn btn-info'>
+          Location
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu>
+          {Branches.map((country, countryIndex) => (
+            <Dropdown key={countryIndex}>
+              <Dropdown.Toggle variant="success" id={`dropdown-country-${countryIndex}`}>
+                {country.country}
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                {country.states.map((state, stateIndex) => (
+                  <Dropdown key={stateIndex}>
+                    <Dropdown.Toggle variant="success" id={`dropdown-state-${countryIndex}-${stateIndex}`}>
+                      {state.name}
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      {state.cities.map((city, cityIndex) => (
+                        <Dropdown key={cityIndex}>
+                          <Dropdown.Toggle variant="success" id={`dropdown-city-${countryIndex}-${stateIndex}-${cityIndex}`}>
+                            {city.name}
+                          </Dropdown.Toggle>
+
+                          <Dropdown.Menu>
+                            {city.regions.map((region, regionIndex) => (
+                              <Dropdown.Item key={`${countryIndex}-${stateIndex}-${cityIndex}-${regionIndex}`} href="#/action-1">
+                                {region}
+                              </Dropdown.Item>
+                            ))}
+                          </Dropdown.Menu>
+                        </Dropdown>
+                      ))}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+          ))}
+        </Dropdown.Menu>
+      </Dropdown>
+    </>
+
   )
 }
