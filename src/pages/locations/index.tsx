@@ -1,130 +1,54 @@
-
-// import Link from 'next/link';
-// import React from 'react';
-
-// export default function Locations() {
-//     const branches = [
-//         { id: '01', name: 'pranav' },
-//         { id: '02', name: 'dipali' },
-//         { id: '03', name: 'sushama' },
-//         { id: '04', name: 'snehal' }
-//     ];
-
-//     return (
-//         <div>
-//             <h1>React Slug Example</h1>
-//             {branches.map((item) => (
-//                 <div key={item.id}>
-//                     <Link href={`/locations/${item.name}`}>
-//                        {item.name}
-//                     </Link>
-//                     <br />
-//                 </div>
-//             ))}
-//         </div>
-//     );
-// }
-
+// Import useState and useEffect hooks
 import React, { Fragment, useState, useEffect } from 'react';
 import Link from 'next/link';
 import Header from '@/component/Layout/Header';
 import Footer from '@/component/Layout/Footer';
 import PageTitle from '@/component/Layout/PageTitle';
 import Franchise from '@/component/Element/Franchise';
-import { EducationBanner } from '../index-1';
-import { Branches } from '@/constants/db';
 import FindBranchDivider from '@/component/Element/FindBranchDivider';
 import axiosInstance from '@/services/axios';
 import { baseUrl } from '@/config';
-const bnr = '/images/background/bg10.jpg';
-const bnr1 = '/images/line2.png'
-const bnr2 = '/images/line2.png'
-const Children1 = '/images/background/children1.png'
-const Children2 = '/images/background/children2.png'
-
-const branchData = [
-    {
-        country: "USA",
-        image: "/images/flags/usa.png",
-        states: [
-            {
-                state: "Iowa",
-                cities: ["Bettendorf"]
-            }
-        ]
-    },
-    {
-        country: "India",
-        image: "/images/flags/india.png",
-        states: [
-            {
-                state: "Haryana",
-                cities: ["Chulkana", "Jaurasi", "Machhrouli", "Manana"]
-            },
-            {
-                state: "Maharashtra",
-                cities: ["Pune"]
-            },
-            {
-                state: "Telangana",
-                cities: ["Dammaiguda"]
-            }
-        ]
-    },
-    {
-        country: "Zimbabwe",
-        image: "/images/flags/Zimbabwe.png",
-        states: [
-            {
-                state: "Mashonaland West",
-                cities: ["Kutam"]
-            }
-        ]
-    },
-    {
-        country: "South Africa",
-        image: "/images/flags/south-africa.png",
-        states: [
-            {
-                state: "KwaZulu-Natal",
-                cities: ["Durban"]
-            }
-        ]
-    },
-];
-
+interface Country {
+    id: number;
+    name: string;
+    image: string;
+    
+    // Add other properties if needed
+  }
 const Locations = () => {
-    const [country, setCountry] = useState([]);
-    const [countryData, setCountryData] = useState([])
-    const [states, setStates] = useState([]);
-    const [activeTab, setActiveTab] = useState(branchData[0].country);
-
-    const openTab = (tabName: string) => {
-        setActiveTab(tabName);
-    };
+    // const [country, setCountry] = useState([]);
+    const [countryData, setCountryData] = useState(null);
+    const [loading, setLoading] = useState(false); // Add loading state
+    const [activeTab, setActiveTab] = useState('');
+    const [country, setCountry] = useState<Country[]>([]);
 
     useEffect(() => {
+        // Fetch list of countries
         axiosInstance.get('api/customer/v1/location/country/getAll')
             .then((response) => {
                 setCountry(response.data.data ? response.data.data : []);
             })
             .catch((error) => {
-                console.error('Error fetching branches:', error);
+                console.error('Error fetching countries:', error);
             });
     }, []);
 
-    const handleCountryClick = (id: any) => {
+    const handleCountryClick = (id: number) => {
+        // Set loading state
+        setLoading(true);
+        // Fetch data for the selected country
         axiosInstance.get(`api/customer/v1/location/getData/${id}`)
             .then((response) => {
-                setCountryData(response.data.data ? response.data.data : []);
-                console.log(countryData)
+                setCountryData(response.data.data || null);
+                // Reset loading state
+                setLoading(false);
             })
             .catch((error) => {
-                console.error('Error fetching country by ID:', error);
+                console.error('Error fetching country data:', error);
+                // Reset loading state
+                setLoading(false);
             });
     };
-
-
 
     return (
         <Fragment>
@@ -132,84 +56,23 @@ const Locations = () => {
             <div className="page-content">
                 <PageTitle motherMenu="Locations" activeMenu="Locations" />
                 <div className="content-block">
-                    <div className="section-full bg-white content-inner-1 " style={{ backgroundImage: "url(" + bnr1 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
+                    <div className="section-full bg-white content-inner-1">
                         <div className="container">
                             <div className="section-head text-center col-md-12">
                                 <h2 className="text-secondry">Our Branches Around the World</h2>
                             </div>
-                            {/* <div className='row'>
-                                <div className='col-lg-3'>
-                                    <div className="d-flex flex-column">
-                                        {country.map((item, index) => (
-                                            <button key={index} className={`tablinks btn tab-btn-location mb-2 ${activeTab === item.name ? 'active' : ''}`} onClick={() => handleCountryClick(item.id)}>{item.name}</button>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className='col-lg-7 offset-lg-1'>
-
-                                    <div className="card location-card">
-                                        <div className="card-body">
-                                            <div className='tabContent'>
-                                                {countryData && (
-                                                    <Fragment>
-                                                        <div className='d-flex justify-content-between'>
-                                                            <img src={countryData.image} alt={countryData.name} />
-                                                            <h4 className='card-title text-center mb-2' style={{ color: "#000" }}>{countryData.name}</h4>
-                                                        </div>
-                                                        <div className='row mt-4'>
-                                                            {countryData?.States?.map((state, stateIndex) => (
-                                                                <div className='col-6 ' key={stateIndex}>
-                                                                    <h5 className='card-subtitle' style={{ color: "#FF0013" }}> {state.name}</h5>
-                                                                    <ul>
-                                                                        {state?.Cities?.map((city, cityIndex) => (
-                                                                            <li className='' key={cityIndex}>
-                                                                                <h6>{city.name}</h6>
-                                                                                <ol>
-                                                                                    {city?.Regions?.map((region, regionIndex) => (
-                                                                                        <li className='' key={regionIndex}>
-                                                                                            <Link className='branch-link' href={`/locations/${region.id}`}>{region.name}</Link>
-                                                                                        </li>
-                                                                                    ))}
-                                                                                </ol>
-                                                                            </li>
-                                                                        ))}
-                                                                    </ul>
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    </Fragment>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-                                </div>
-                            </div> */}
-
                             <div className='row'>
                                 {country.map((country, index) => (
                                     <div className='col-lg-3 mb-4' key={index}>
                                         <div className="card country-card h-100" onClick={() => handleCountryClick(country.id)} >
                                             <div className='border-area'>
                                                 <div className="card-body flag-area  h-80">
-
-
-                                                    <div className=''>
-                                                        <div className='text-center'>
-                                                            <img className="" src={`${baseUrl}${country.image}`} alt={country.name} />
-
-                                                        </div>
-
-
-
-
+                                                    <div className='text-center'>
+                                                        <img className="" src={`${baseUrl}${country[index]?.image}`} alt={country[index]?.name} />
                                                     </div>
-
-
-
                                                 </div>
+
+
                                                 <div className='card-footer text-center'>
                                                     <h4 className="card-title">{country.name}</h4>
                                                 </div>
@@ -217,130 +80,38 @@ const Locations = () => {
                                         </div>
                                     </div>
                                 ))}
-
                             </div>
 
+                            {loading && <p>Loading...</p>}
 
-                            <div className='row' id='#branches'>
-                                {countryData?.States?.map((data: any) => (
-                                    <div className='col-lg-4 mb-4' key={data.id}>
-                                        <div className="card country-card h-100" >
-
-                                            <div className="card-body">
-                                                <h4 className="card-title text-center">{data.name}</h4>
-                                                <div className='row d-flex justify-content-between'>
-                                                    {data.Cities?.map((city: any) => (
-                                                        <div className='col-12' key={city.id}>
-                                                            <h6 className='card-subtitle text-muted'>
-                                                                <i className="fa fa-map-marker" aria-hidden="true"></i> {city.name}</h6>
-
-                                                            <ul>
-
-                                                                {city.Regions?.map((region: any) => (
-                                                                    <li key={region.id}>
-                                                                        <i className="fa fa-globe" aria-hidden="true"></i> <Link href={`/locations/${region.id}`}>{region.name}</Link>
-                                                                    </li>
-                                                                ))}
-                                                            </ul>
-                                                        </div>
-                                                    ))}
+                            {!loading && countryData && (
+                                <div className='row' id='#branches'>
+                                    {countryData.States.map((data, index) => (
+                                        <div className='col-lg-4 mb-4' key={index}>
+                                            <div className="card country-card h-100">
+                                                <div className="card-body">
+                                                    <h4 className="card-title text-center">{data.name}</h4>
+                                                    <div className='row d-flex justify-content-between'>
+                                                        {data.Cities.map((city, index) => (
+                                                            <div className='col-12' key={index}>
+                                                                <h6 className='card-subtitle text-muted'>
+                                                                    <i className="fa fa-map-marker" aria-hidden="true"></i> {city.name}</h6>
+                                                                <ul>
+                                                                    {city.Regions.map((region, index) => (
+                                                                        <li key={index}>
+                                                                            <i className="fa fa-globe" aria-hidden="true"></i> <Link href={`/locations/${region.id}`}>{region.name}</Link>
+                                                                        </li>
+                                                                    ))}
+                                                                </ul>
+                                                            </div>
+                                                        ))}
+                                                    </div>
                                                 </div>
-
-
-
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
-
-                            </div>
-
-
-
-
-
-                        </div>
-                    </div>
-
-
-
-
-                    <div className="section-full bg-white content-inner-1  mt-50" style={{ backgroundImage: "url(" + bnr2 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
-
-
-                        {/* ======================================================= */}
-                        {/* <div className="container-fluid">
-                            <div className="row">
-                                <div className='col-lg-4 my-4'>
-                                    <div className="card visiting-card" >
-
-                                        <div className="card-body">
-                                            <div className='d-flex justify-content-between'>
-                                                <h6 className="card-subtitle country">India</h6>
-                                                <h6 className="card-subtitle  state">Maharashtra</h6>
-
-                                            </div>
-                                            <div className='row d-flex justify-content-center'>
-                                                <div className='col-4'>
-                                                    <div className='img-box d-flex align-items-center justify-content-center'>
-                                                        <img className="" src="/images/flags/india.jpg" alt="Card image cap" />
-                                                    </div>
-                                                    <div className='text-center'>
-                                                        <h4 className="card-title">Pune</h4>
-
-                                                    </div>
-
-
-
-                                                </div>
-                                                <div className='col-8'>
-
-
-                                                    <div className=''>
-                                                        <ul>
-                                                            <li>
-                                                                <i className="fa fa-phone" aria-hidden="true"></i>
-                                                                <Link className='branch-link' href={"#"}>+91 7773969004</Link>
-                                                            </li>
-                                                            <li>
-                                                                <i className="fa fa-envelope-o" aria-hidden="true"></i>
-                                                                <Link className='branch-link' href={"#"}>pune@b4-schoo.com</Link>
-                                                            </li>
-                                                            <li>
-                                                                <i className="fa fa-map-marker" aria-hidden="true"></i>
-                                                                <Link className='branch-link' href={"#"}>Seven Love Chowk,<br />Pune-411037</Link>
-                                                            </li>
-                                                            <li>
-                                                                <i className="fa fa-globe" aria-hidden="true"></i>
-                                                                <Link className='branch-link' href={"#"}>www.b4-school.com</Link>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
+                                    ))}
                                 </div>
-
-                            </div>
-
-
-
-                        </div> */}
-
-
-                        {/* ====================================================== */}
-
-                    </div>
-
-
-                    <div className="section-full bg-white content-inner-1  mt-50" style={{ backgroundImage: "url(" + bnr2 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
-                        <div className="container">
-
-                            <Franchise />
+                            )}
                         </div>
                     </div>
                 </div>
@@ -348,11 +119,7 @@ const Locations = () => {
             <section>
                 <FindBranchDivider />
             </section>
-
-
-
             <Footer />
-
         </Fragment>
     );
 };

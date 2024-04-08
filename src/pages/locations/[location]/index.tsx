@@ -24,7 +24,7 @@ interface BranchData {
 	name: string;
 	city_name: string;
 	// Add other properties as needed
-  }
+}
 const Branch = () => {
 	const router = useRouter();
 	const { location } = router.query;
@@ -75,7 +75,7 @@ const Branch = () => {
 			axiosInstance.get(`api/customer/v1/location/region/get/${id}`)
 				.then((response) => {
 					setBranchData(response.data.data ? response.data.data : null); // Set branchData to null if response data is empty
-					console.log("Branch Data",branchData)
+					console.log("Branch Data", branchData)
 				})
 				.catch((error) => {
 					console.error('Error fetching branch data:', error);
@@ -94,9 +94,12 @@ const Branch = () => {
 									<ul>
 
 										<li><i className="fa fa-phone m-r5"></i> +1 (315) 402-1234</li>
-										<li><i className="fa fa-map-marker m-r5"></i>
-											{branchData?.name}, {branchData?.City?.name}
+										<li>
+											<i className="fa fa-map-marker m-r5"></i>
+											{branchData?.name}, {branchData?.city_name}
 										</li>
+
+
 									</ul>
 								</div>
 								<div className="dlab-topbar-right">
