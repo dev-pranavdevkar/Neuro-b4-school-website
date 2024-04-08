@@ -18,67 +18,75 @@ const bnr1 = '/images/line2.png'
 const Children1 = '/images/background/children1.png'
 const Children2 = '/images/background/children2.png'
 const bgimg3 = '/images/line2.png'
+
+// Define an interface for the branch data
+interface BranchData {
+	name: string;
+	city_name: string;
+	// Add other properties as needed
+  }
 const Branch = () => {
-    const router = useRouter();
-    const { location } = router.query;
-    const id = location; // Assigning location directly to id
+	const router = useRouter();
+	const { location } = router.query;
+	const id = location; // Assigning location directly to id
 
-    const [timerDays, setTimerDays] = useState('00');
-    const [timerHours, setTimerHours] = useState('00');
-    const [timerMinutes, setTimerMinutes] = useState('00');
-    const [timerSeconds, setTimerSeconds] = useState('00');
-    const intervalRef = useRef<NodeJS.Timeout | undefined>();
+	const [timerDays, setTimerDays] = useState('00');
+	const [timerHours, setTimerHours] = useState('00');
+	const [timerMinutes, setTimerMinutes] = useState('00');
+	const [timerSeconds, setTimerSeconds] = useState('00');
+	const intervalRef = useRef<NodeJS.Timeout | undefined>();
 
-    const startTimer = () => {
-        const WebsiteLaunchDate = new Date();
-        WebsiteLaunchDate.setMonth(WebsiteLaunchDate.getMonth() + 1);
-        const countdownDate = new Date(WebsiteLaunchDate.getFullYear(), WebsiteLaunchDate.getMonth(), WebsiteLaunchDate.getDate(), 23, 5).getTime();
+	const startTimer = () => {
+		const WebsiteLaunchDate = new Date();
+		WebsiteLaunchDate.setMonth(WebsiteLaunchDate.getMonth() + 1);
+		const countdownDate = new Date(WebsiteLaunchDate.getFullYear(), WebsiteLaunchDate.getMonth(), WebsiteLaunchDate.getDate(), 23, 5).getTime();
 
-        intervalRef.current = setInterval(() => {
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+		intervalRef.current = setInterval(() => {
+			const now = new Date().getTime();
+			const distance = countdownDate - now;
+			const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+			const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+			const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            if (distance < 0) {
-                clearInterval(intervalRef.current!);
-            } else {
-                setTimerDays(days.toString().padStart(2, '0'));
-                setTimerHours(hours.toString().padStart(2, '0'));
-                setTimerMinutes(minutes.toString().padStart(2, '0'));
-                setTimerSeconds(seconds.toString().padStart(2, '0'));
-            }
-        }, 1000);
-    };
+			if (distance < 0) {
+				clearInterval(intervalRef.current!);
+			} else {
+				setTimerDays(days.toString().padStart(2, '0'));
+				setTimerHours(hours.toString().padStart(2, '0'));
+				setTimerMinutes(minutes.toString().padStart(2, '0'));
+				setTimerSeconds(seconds.toString().padStart(2, '0'));
+			}
+		}, 1000);
+	};
 
-    useEffect(() => {
-        startTimer();
-        return () => {
-            clearInterval(intervalRef.current!);
-        };
-    }, []);
+	useEffect(() => {
+		startTimer();
+		return () => {
+			clearInterval(intervalRef.current!);
+		};
+	}, []);
 
-    const [branchData, setBranchData] = useState(null); // Initially setting branchData as null
+	const [branchData, setBranchData] = useState<BranchData | null>(null); // Specify BranchData as the type
 
-    useEffect(() => {
-        // Fetch branch data only if location is defined
-        if (id) {
-            axiosInstance.get(`customer/v1/location/region/get/${id}`)
-                .then((response) => {
-                    setBranchData(response.data.data ? response.data.data : null); // Set branchData to null if response data is empty
-                })
-                .catch((error) => {
-                    console.error('Error fetching branch data:', error);
-                });
-        }
-    }, [id]); // Ensure useEffect runs when `id` changes
+	useEffect(() => {
+		// Fetch branch data only if location is defined
+		if (id) {
+			axiosInstance.get(`api/customer/v1/location/region/get/${id}`)
+				.then((response) => {
+					setBranchData(response.data.data ? response.data.data : null); // Set branchData to null if response data is empty
+					console.log("Branch Data",branchData)
+				})
+				.catch((error) => {
+					console.error('Error fetching branch data:', error);
+				});
+		}
+	}, [id]); // Ensure useEffect runs when `id` changes
 
-    return (
-        <Fragment>
-             {branchData && ( <>
-                <header className="site-header header mo-left">
+	return (
+		<Fragment>
+			{branchData && (<>
+				<header className="site-header header mo-left">
 					<div className="top-bar">
 						<div className="container">
 							<div className="row d-flex justify-content-between">
@@ -87,12 +95,13 @@ const Branch = () => {
 
 										<li><i className="fa fa-phone m-r5"></i> +1 (315) 402-1234</li>
 										<li><i className="fa fa-map-marker m-r5"></i>
-											{branchData.name}, {branchData.city_name}</li>
+											{branchData?.name}, {branchData?.City?.name}
+										</li>
 									</ul>
 								</div>
 								<div className="dlab-topbar-right">
-								<ul>
-									
+									<ul>
+
 										<li><i className="fa fa-clock-o m-r5"></i> We Prepare Preschoolers For School</li>
 									</ul>
 								</div>
@@ -179,7 +188,7 @@ const Branch = () => {
 												<li><Link href={"/gallery-filter"}>Gallery Tiles Filter</Link></li>
 											</ul> */}
 										</li>
-									
+
 										<li><Link href={"#contact"}>Contact</Link></li>
 									</ul>
 								</div>
@@ -188,7 +197,7 @@ const Branch = () => {
 					</div>
 					{/* Main header END */}
 				</header>
-                <div className="page-content bg-white">
+				<div className="page-content bg-white">
 					{ /* Slider Banner */}
 					<BannerSlider />
 					{ /* Slider Banner */}
@@ -238,8 +247,8 @@ const Branch = () => {
 									</div>
 								</div>
 							</div> */}
-							
-						
+
+
 						<FirstSafePreschoolNetwork />
 						<WhyIsEarlyChildhoodEducationImportant />
 						<div className="section-full bg-white content-inner-1" style={{ backgroundImage: "url(" + bgimg3 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
@@ -260,7 +269,7 @@ const Branch = () => {
 								<FilterTab />
 							</div>
 						</div>
-					
+
 						<div className="section-full bg-white content-inner-1">
 							<div className="container">
 								<div className="section-head text-center">
@@ -279,39 +288,39 @@ const Branch = () => {
 								<FromSlider />
 							</div>
 						</div> */}
-                          <ContactForm/>
+						<ContactForm />
 					</div>
 				</div>
-                <footer className="site-footer">
-				<div className="footer-top">
-					<div className="container wow fadeIn" data-wow-delay="0.5s">
-						<div className="row d-flex justify-content-between">
-							<div className="col-xl-3 col-lg-6 col-md-6 col-sm-6 footer-col-4">
-								<div className="widget widget_ftabout">
-									<div className="footer-logo">
-										<Link href={"./"}><img src='/images/logo.png' className='logo-size-footer' alt="" /></Link>
+				<footer className="site-footer">
+					<div className="footer-top">
+						<div className="container wow fadeIn" data-wow-delay="0.5s">
+							<div className="row d-flex justify-content-between">
+								<div className="col-xl-3 col-lg-6 col-md-6 col-sm-6 footer-col-4">
+									<div className="widget widget_ftabout">
+										<div className="footer-logo">
+											<Link href={"./"}><img src='/images/logo.png' className='logo-size-footer' alt="" /></Link>
+										</div>
+										<p>We prepare preschoolers for school</p>
 									</div>
-									<p>We prepare preschoolers for school</p>
 								</div>
-							</div>
-							<div className="col-xl-4 col-lg-6 col-md-6 col-sm-6 footer-col-4">
-								<div className="widget widget_services border-0">
-									<h5 className="footer-title">Information</h5>
-									<ul className="list-2">
-										<li><Link href={"#home"}>Home</Link></li>
-										<li><Link href={"#about"}>About </Link></li>
-										<li><Link href={"#programs"}>Programs</Link></li>
-										<li><Link href={"#teachers"}>Teachers</Link></li>
-										<li><Link href={"#activities"}>Activities</Link></li>
-										<li><Link href={"#testimonial"}>Testimonial</Link></li>
-                                        <li><Link href={"#contact"}>Contact</Link></li>
-										
-										{/* <li><Link href={"/classes"}>Classes</Link></li> */}
-										{/* <li><Link href={"/contact-us"}>Contact</Link></li> */}
-									</ul>
+								<div className="col-xl-4 col-lg-6 col-md-6 col-sm-6 footer-col-4">
+									<div className="widget widget_services border-0">
+										<h5 className="footer-title">Information</h5>
+										<ul className="list-2">
+											<li><Link href={"#home"}>Home</Link></li>
+											<li><Link href={"#about"}>About </Link></li>
+											<li><Link href={"#programs"}>Programs</Link></li>
+											<li><Link href={"#teachers"}>Teachers</Link></li>
+											<li><Link href={"#activities"}>Activities</Link></li>
+											<li><Link href={"#testimonial"}>Testimonial</Link></li>
+											<li><Link href={"#contact"}>Contact</Link></li>
+
+											{/* <li><Link href={"/classes"}>Classes</Link></li> */}
+											{/* <li><Link href={"/contact-us"}>Contact</Link></li> */}
+										</ul>
+									</div>
 								</div>
-							</div>
-							{/* <div className="col-xl-3 col-lg-6 col-md-6 col-sm-12 footer-col-4">
+								{/* <div className="col-xl-3 col-lg-6 col-md-6 col-sm-12 footer-col-4">
 								<div className="widget recent-posts-entry">
 									<h5 className="footer-title">Recent Posts</h5>
 										<div className="widget-post-bx">
@@ -346,7 +355,7 @@ const Branch = () => {
 										</div>
 								</div>
 							</div> */}
-							{/* <div className="col-xl-3 col-lg-6 col-md-6 col-sm-12 footer-col-4 ">
+								{/* <div className="col-xl-3 col-lg-6 col-md-6 col-sm-12 footer-col-4 ">
 								<div className="widget">
 									<h5 className="footer-title">Newsletter</h5>
 									<div className="subscribe-form m-b20">
@@ -361,31 +370,31 @@ const Branch = () => {
 								</div>
 							</div> */}
 
-                          
-						</div>
-					</div>
-				</div>
-				{/*  footer bottom part  */}
-				<div className="footer-bottom">
-					<div className="container">
-						<div className="row">
-							<div className="col-lg-6 col-md-8 col-sm-6 text-left "> <span>Copyright © 2022 B4-School. All right reserved</span> </div>
-							<div className="col-lg-6 col-md-4 col-sm-6 text-right "> 
-								<ul className="list-inline">
-									<li><Link href={"#"} className="btn-link facebook circle mr-1"><i className="fa fa-facebook"></i></Link></li>
-									<li><Link href={"#"} className="btn-link google-plus circle mr-1"><i className="fa fa-google-plus"></i></Link></li>
-									<li><Link href={"#"} className="btn-link linkedin circle mr-1"><i className="fa fa-linkedin"></i></Link></li>
-									<li><Link href={"#"} className="btn-link instagram circle"><i className="fa fa-instagram"></i></Link></li>
-								</ul>
+
 							</div>
 						</div>
 					</div>
-				</div>
-			</footer>
-             </>)}
-      
-        </Fragment>
-    );
+					{/*  footer bottom part  */}
+					<div className="footer-bottom">
+						<div className="container">
+							<div className="row">
+								<div className="col-lg-6 col-md-8 col-sm-6 text-left "> <span>Copyright © 2022 B4-School. All right reserved</span> </div>
+								<div className="col-lg-6 col-md-4 col-sm-6 text-right ">
+									<ul className="list-inline">
+										<li><Link href={"#"} className="btn-link facebook circle mr-1"><i className="fa fa-facebook"></i></Link></li>
+										<li><Link href={"#"} className="btn-link google-plus circle mr-1"><i className="fa fa-google-plus"></i></Link></li>
+										<li><Link href={"#"} className="btn-link linkedin circle mr-1"><i className="fa fa-linkedin"></i></Link></li>
+										<li><Link href={"#"} className="btn-link instagram circle"><i className="fa fa-instagram"></i></Link></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</footer>
+			</>)}
+
+		</Fragment>
+	);
 }
 
 export default Branch;

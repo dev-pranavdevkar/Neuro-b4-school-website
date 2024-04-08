@@ -35,6 +35,7 @@ import { EducationBanner } from '../index-1';
 import { Branches } from '@/constants/db';
 import FindBranchDivider from '@/component/Element/FindBranchDivider';
 import axiosInstance from '@/services/axios';
+import { baseUrl } from '@/config';
 const bnr = '/images/background/bg10.jpg';
 const bnr1 = '/images/line2.png'
 const bnr2 = '/images/line2.png'
@@ -103,7 +104,7 @@ const Locations = () => {
     };
 
     useEffect(() => {
-        axiosInstance.get('customer/v1/location/country/getAll')
+        axiosInstance.get('api/customer/v1/location/country/getAll')
             .then((response) => {
                 setCountry(response.data.data ? response.data.data : []);
             })
@@ -112,8 +113,8 @@ const Locations = () => {
             });
     }, []);
 
-    const handleCountryClick = (id) => {
-        axiosInstance.get(`customer/v1/location/getData/${id}`)
+    const handleCountryClick = (id: any) => {
+        axiosInstance.get(`api/customer/v1/location/getData/${id}`)
             .then((response) => {
                 setCountryData(response.data.data ? response.data.data : []);
                 console.log(countryData)
@@ -122,6 +123,8 @@ const Locations = () => {
                 console.error('Error fetching country by ID:', error);
             });
     };
+
+
 
     return (
         <Fragment>
@@ -134,7 +137,7 @@ const Locations = () => {
                             <div className="section-head text-center col-md-12">
                                 <h2 className="text-secondry">Our Branches Around the World</h2>
                             </div>
-                            <div className='row'>
+                            {/* <div className='row'>
                                 <div className='col-lg-3'>
                                     <div className="d-flex flex-column">
                                         {country.map((item, index) => (
@@ -183,12 +186,160 @@ const Locations = () => {
 
 
                                 </div>
+                            </div> */}
+
+                            <div className='row'>
+                                {country.map((country, index) => (
+                                    <div className='col-lg-3 mb-4' key={index}>
+                                        <div className="card country-card h-100" onClick={() => handleCountryClick(country.id)} >
+                                            <div className='border-area'>
+                                                <div className="card-body flag-area  h-80">
+
+
+                                                    <div className=''>
+                                                        <div className='text-center'>
+                                                            <img className="" src={`${baseUrl}${country.image}`} alt={country.name} />
+
+                                                        </div>
+
+
+
+
+                                                    </div>
+
+
+
+                                                </div>
+                                                <div className='card-footer text-center'>
+                                                    <h4 className="card-title">{country.name}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+
                             </div>
+
+
+                            <div className='row' id='#branches'>
+                                {countryData?.States?.map((data: any) => (
+                                    <div className='col-lg-4 mb-4' key={data.id}>
+                                        <div className="card country-card h-100" >
+
+                                            <div className="card-body">
+                                                <h4 className="card-title text-center">{data.name}</h4>
+                                                <div className='row d-flex justify-content-between'>
+                                                    {data.Cities?.map((city: any) => (
+                                                        <div className='col-12' key={city.id}>
+                                                            <h6 className='card-subtitle text-muted'>
+                                                                <i className="fa fa-map-marker" aria-hidden="true"></i> {city.name}</h6>
+
+                                                            <ul>
+
+                                                                {city.Regions?.map((region: any) => (
+                                                                    <li key={region.id}>
+                                                                        <i className="fa fa-globe" aria-hidden="true"></i> <Link href={`/locations/${region.id}`}>{region.name}</Link>
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        </div>
+                                                    ))}
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+
+                            </div>
+
+
+
+
+
                         </div>
                     </div>
+
+
+
+
+                    <div className="section-full bg-white content-inner-1  mt-50" style={{ backgroundImage: "url(" + bnr2 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
+
+
+                        {/* ======================================================= */}
+                        {/* <div className="container-fluid">
+                            <div className="row">
+                                <div className='col-lg-4 my-4'>
+                                    <div className="card visiting-card" >
+
+                                        <div className="card-body">
+                                            <div className='d-flex justify-content-between'>
+                                                <h6 className="card-subtitle country">India</h6>
+                                                <h6 className="card-subtitle  state">Maharashtra</h6>
+
+                                            </div>
+                                            <div className='row d-flex justify-content-center'>
+                                                <div className='col-4'>
+                                                    <div className='img-box d-flex align-items-center justify-content-center'>
+                                                        <img className="" src="/images/flags/india.jpg" alt="Card image cap" />
+                                                    </div>
+                                                    <div className='text-center'>
+                                                        <h4 className="card-title">Pune</h4>
+
+                                                    </div>
+
+
+
+                                                </div>
+                                                <div className='col-8'>
+
+
+                                                    <div className=''>
+                                                        <ul>
+                                                            <li>
+                                                                <i className="fa fa-phone" aria-hidden="true"></i>
+                                                                <Link className='branch-link' href={"#"}>+91 7773969004</Link>
+                                                            </li>
+                                                            <li>
+                                                                <i className="fa fa-envelope-o" aria-hidden="true"></i>
+                                                                <Link className='branch-link' href={"#"}>pune@b4-schoo.com</Link>
+                                                            </li>
+                                                            <li>
+                                                                <i className="fa fa-map-marker" aria-hidden="true"></i>
+                                                                <Link className='branch-link' href={"#"}>Seven Love Chowk,<br />Pune-411037</Link>
+                                                            </li>
+                                                            <li>
+                                                                <i className="fa fa-globe" aria-hidden="true"></i>
+                                                                <Link className='branch-link' href={"#"}>www.b4-school.com</Link>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                        </div> */}
+
+
+                        {/* ====================================================== */}
+
+                    </div>
+
+
                     <div className="section-full bg-white content-inner-1  mt-50" style={{ backgroundImage: "url(" + bnr2 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
                         <div className="container">
-                         
+
                             <Franchise />
                         </div>
                     </div>

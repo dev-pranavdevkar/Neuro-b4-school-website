@@ -15,7 +15,7 @@ const FindBranchDivider = () => {
     const [regions, setRegions] = useState([]);
 
     useEffect(() => {
-        axiosInstance.get('customer/v1/location/country/getAll')
+        axiosInstance.get('api/customer/v1/location/country/getAll')
             .then((response) => {
                 setCountry(response.data.data ? response.data.data : []);
             })
@@ -24,9 +24,9 @@ const FindBranchDivider = () => {
             });
     }, []);
 
-    const handleCountrySelect = (id) => {
+    const handleCountrySelect = (id:any) => {
         setSelectedCountry(id);
-        axiosInstance.get(`customer/v1/location/country/get/${id}`)
+        axiosInstance.get(`api/customer/v1/location/country/get/${id}`)
             .then((response) => {
                 setStates(response.data.data.States ? response.data.data.States : []);
             })
@@ -35,9 +35,9 @@ const FindBranchDivider = () => {
             });
     };
 
-    const handleStateSelect = (id) => {
+    const handleStateSelect = (id:any) => {
         setSelectedState(id);
-        axiosInstance.get(`customer/v1/location/state/get/${id}`)
+        axiosInstance.get(`api/customer/v1/location/state/get/${id}`)
             .then((response) => {
                 setCities(response.data.data.Cities ? response.data.data.Cities : []);
             })
@@ -46,9 +46,9 @@ const FindBranchDivider = () => {
             });
     };
 
-    const handleCitySelect = (id) => {
+    const handleCitySelect = (id:any) => {
         setSelectedCity(id);
-        axiosInstance.get(`customer/v1/location/city/get/${id}`)
+        axiosInstance.get(`api/customer/v1/location/city/get/${id}`)
             .then((response) => {
                 setRegions(response.data.data.Regions ? response.data.data.Regions : []);
             })
@@ -57,7 +57,7 @@ const FindBranchDivider = () => {
             });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e:any) => {
         e.preventDefault();
         if (selectedBranch) {
             router.push(`/locations/${selectedBranch}`);
@@ -93,8 +93,8 @@ const FindBranchDivider = () => {
                                                         onChange={(e) => handleCountrySelect(e.target.value)}
                                                     >
                                                         <option value="">Select Country</option>
-                                                        {country.map((branch, index) => (
-                                                            <option key={`country-${index}`} value={branch.id}>{branch.name}</option>
+                                                        {country.map((branch:any, index) => (
+                                                            <option key={`country-${index}`} value={branch?.id}>{branch.name}</option>
                                                         ))}
                                                     </select>
                                                 </div>
@@ -108,7 +108,7 @@ const FindBranchDivider = () => {
                                                         onChange={(e) => handleStateSelect(e.target.value)}
                                                     >
                                                         <option value="">Select State</option>
-                                                        {states.map((state, index) => (
+                                                        {states.map((state:any, index) => (
                                                             <option key={`state-${index}`} value={state.id}>{state.name}</option>
                                                         ))}
                                                     </select>
@@ -123,7 +123,7 @@ const FindBranchDivider = () => {
                                                         onChange={(e) => handleCitySelect(e.target.value)}
                                                     >
                                                         <option value="">Select City</option>
-                                                        {cities.map((city, index) => (
+                                                        {cities.map((city:any, index) => (
                                                             <option key={`city-${index}`} value={city.id}>{city.name}</option>
                                                         ))}
                                                     </select>
@@ -138,7 +138,7 @@ const FindBranchDivider = () => {
                                                         onChange={(e) => setSelectedBranch(e.target.value)}
                                                     >
                                                         <option value="">Select Branch</option>
-                                                        {regions.map((region, index) => (
+                                                        {regions.map((region:any, index) => (
                                                             <option key={`region-${index}`} value={region.id}>{region.name}</option>
                                                         ))}
                                                     </select>

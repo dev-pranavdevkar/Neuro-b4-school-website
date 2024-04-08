@@ -1,8 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 const axiosInstance: AxiosInstance = axios.create({
-    // Axios instance configuration options
-  baseURL: 'https://api-b4school.shreekakajimasale.com/api'
+  baseURL: 'https://api-b4school.shreekakajimasale.com/'
 });
 
 axiosInstance.interceptors.request.use(
@@ -21,7 +20,7 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
     (response) => {
-        // Do something with response data
+        
         return response;
     },
     (error) => {
