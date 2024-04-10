@@ -1,5 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
-import ThemeButton from '@/component/Element/ThemeButton/ThemeButton'
+// import ThemeButton from '@/component/Element/ThemeButton/ThemeButton'
 
 export default function Document() {
   return (
@@ -8,7 +8,7 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
-        <ThemeButton/>
+        {/* <ThemeButton/> */}
       </body>
     </Html>
   )

@@ -1,6 +1,7 @@
 import React,{Fragment, useRef } from 'react';
 import Link from 'next/link';
 import emailjs from 'emailjs-com';
+import ThemeButton from '../Element/ThemeButton/ThemeButton';
 
 const Footer = () =>{
 	const form = useRef();
@@ -105,6 +106,7 @@ const Footer = () =>{
 					</div>
 				</div>
 			</footer>
+			<ThemeButton/>
 		</Fragment>
 	)
 }
