@@ -68,7 +68,7 @@ const Locations = () => {
                                             <div className='border-area'>
                                                 <div className="card-body flag-area  h-80">
                                                     <div className='text-center'>
-                                                        <img className="" src={`${baseUrl}${country[index]?.image}`} alt={country[index]?.name} />
+                                                        <img className="" src={`${baseUrl}${country?.image}`} alt={country?.name} />
                                                     </div>
                                                 </div>
 

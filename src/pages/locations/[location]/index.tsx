@@ -13,6 +13,8 @@ import FilterTab from '@/component/Element/FilterTab';
 import WhyIsEarlyChildhoodEducationImportant from '@/component/Element/WhyIsEarlyChildhoodEducationImportant';
 import TestiMonialSlider from '@/component/Element/TestiMonialSlider';
 import ContactForm from '@/component/Element/ContactForm';
+import ThemeButton from '@/component/Element/ThemeButton/ThemeButton';
+
 const bnr = '/images/background/bg10.jpg';
 const bnr1 = '/images/line2.png'
 const Children1 = '/images/background/children1.png'
@@ -23,7 +25,12 @@ const bgimg3 = '/images/line2.png'
 interface BranchData {
 	name: string;
 	city_name: string;
-	// Add other properties as needed
+	mobile_number:string;
+	map_url:string;
+	facebook_url:string;
+	google_plus_url:string;
+	linkedin_url:string;
+	instagram_url:string;
 }
 const Branch = () => {
 	const router = useRouter();
@@ -93,10 +100,12 @@ const Branch = () => {
 								<div className="dlab-topbar-left">
 									<ul>
 
-										<li><i className="fa fa-phone m-r5"></i> +1 (315) 402-1234</li>
+									<li><i className="fa fa-phone m-r5"></i><a className='text-light' href={`tel:+${branchData?.mobile_number || '13154021234'}`}>{branchData?.mobile_number || '917773969004'}</a></li>
+
+
 										<li>
 											<i className="fa fa-map-marker m-r5"></i>
-											{branchData?.name}, {branchData?.city_name}
+											<a className='text-light' href={`${branchData?.map_url || 'https://www.google.com/maps/'}`} target='_blank'>	{branchData?.name}, {branchData?.city_name}</a>
 										</li>
 
 
@@ -225,32 +234,7 @@ const Branch = () => {
 
 
 						<OurPrograms />
-						{/* <EducationBanner /> */}
-
-						{/* <div className="section-full bg-white content-inner-1 text-center">
-								<div className="container">
-									<div className="section-head">
-										<h2 className="head-title text-secondry">Why is early childhood education important?</h2>
-										<p>Fill your child's childhood with the joy of learning!</p>
-									</div>
-									<div className="row">
-										{iconBlog.map((data, index)=>(
-											<div className="col-lg-3 col-md-6 col-sm-6 col-12" key={index}>
-												<div className="icon-bx-wraper sr-iconbox m-b20">
-													<div className="icon-lg m-b20">
-														<Link href={"#"} className="icon-cell">
-															<img src={data.image} alt=""/></Link>
-													</div>
-													<div className="icon-content">
-														<h6 className="dlab-tilte">{data.title1}<br/>{data.title2}</h6>
-													</div>
-												</div>
-											</div>
-										))}
-									</div>
-								</div>
-							</div> */}
-
+						
 
 						<FirstSafePreschoolNetwork />
 						<WhyIsEarlyChildhoodEducationImportant />
@@ -282,16 +266,9 @@ const Branch = () => {
 								<TestiMonialSlider />
 							</div>
 						</div>
-						{/* <div className="section-full bg-white content-inner">
-							<div className="container">
-								<div className="section-head text-center">
-									<h2 className="head-title text-secondry">From the News</h2>
-									<p>We have an excellent teacher to child ratio at our Kindergarten to ensure that each child receives the attention he or she needs</p>
-								</div>
-								<FromSlider />
-							</div>
-						</div> */}
-						<ContactForm />
+				
+						<ContactForm branchData={branchData as BranchData | null} />
+
 					</div>
 				</div>
 				<footer className="site-footer">
@@ -318,60 +295,11 @@ const Branch = () => {
 											<li><Link href={"#testimonial"}>Testimonial</Link></li>
 											<li><Link href={"#contact"}>Contact</Link></li>
 
-											{/* <li><Link href={"/classes"}>Classes</Link></li> */}
-											{/* <li><Link href={"/contact-us"}>Contact</Link></li> */}
+											
 										</ul>
 									</div>
 								</div>
-								{/* <div className="col-xl-3 col-lg-6 col-md-6 col-sm-12 footer-col-4">
-								<div className="widget recent-posts-entry">
-									<h5 className="footer-title">Recent Posts</h5>
-										<div className="widget-post-bx">
-											<div className="widget-post clearfix">
-												<div className="dlab-post-media"> <img src='/images/blog/recent-blog/pic1.jpg' width="200" height="143" alt="" /> </div>
-												<div className="dlab-post-info">
-													<div className="dlab-post-header">
-														<h6 className="post-title"><Link href={"/blog-details"}>What It's Like Dating.</Link></h6>
-													</div>
-													<div className="dlab-post-meta">
-														<ul>
-															<li className="post-author">By Jone</li>
-															<li className="post-comment"><i className="fa fa-comments"></i> 28</li>
-														</ul>
-													</div>
-												</div>
-											</div>
-											<div className="widget-post clearfix">
-												<div className="dlab-post-media"> <img src='images/blog/recent-blog/pic2.jpg' width="200" height="143" alt="" /> </div>
-												<div className="dlab-post-info">
-													<div className="dlab-post-header">
-														<h6 className="post-title"><Link href={"/blog-details"}>The Reasons Why We Love</Link></h6>
-													</div>
-													<div className="dlab-post-meta">
-														<ul>
-															<li className="post-author">By Marry</li>
-															<li className="post-comment"><i className="fa fa-comments"></i> 5</li>
-														</ul>
-													</div>
-												</div>
-											</div>
-										</div>
-								</div>
-							</div> */}
-								{/* <div className="col-xl-3 col-lg-6 col-md-6 col-sm-12 footer-col-4 ">
-								<div className="widget">
-									<h5 className="footer-title">Newsletter</h5>
-									<div className="subscribe-form m-b20">
-										<form className="dzSubscribe" ref={form} onSubmit={sendEmail}>
-											<div className="dzSubscribeMsg"></div>
-											<div>
-												<input name="dzEmail" required="required"  className="form-control" placeholder="Your Email Address" type="email" />
-												<button name="submit" value="Submit" type="submit" className="btn btn-md radius-xl">Subscribe</button>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div> */}
+								
 
 
 							</div>
@@ -384,17 +312,24 @@ const Branch = () => {
 								<div className="col-lg-6 col-md-8 col-sm-6 text-left "> <span>Copyright © 2022 B4-School. All right reserved</span> </div>
 								<div className="col-lg-6 col-md-4 col-sm-6 text-right ">
 									<ul className="list-inline">
-										<li><Link href={"#"} className="btn-link facebook circle mr-1"><i className="fa fa-facebook"></i></Link></li>
-										<li><Link href={"#"} className="btn-link google-plus circle mr-1"><i className="fa fa-google-plus"></i></Link></li>
-										<li><Link href={"#"} className="btn-link linkedin circle mr-1"><i className="fa fa-linkedin"></i></Link></li>
-										<li><Link href={"#"} className="btn-link instagram circle"><i className="fa fa-instagram"></i></Link></li>
+										<li><Link href={`${branchData?.facebook_url || 'https://www.facebook.com/people/B4-School/100065696191087/'}`} target='_blank' className="btn-link facebook circle mr-1"><i className="fa fa-facebook"></i></Link></li>
+										<li><Link href={`mailto:${branchData?.google_plus_url || 'contact@b4-school.com'}`} target='_blank' className="btn-link google-plus circle mr-1"><i className="fa fa-google-plus"></i></Link></li>
+										<li><Link href={`${branchData?.linkedin_url || 'https://www.linkedin.com/'}`} target='_blank' className="btn-link linkedin circle mr-1"><i className="fa fa-linkedin"></i></Link></li>
+										<li><Link href={`${branchData?.instagram_url || 'https://www.instagram.com'}`} target='_blank' className="btn-link instagram circle"><i className="fa fa-instagram"></i></Link></li>
 									</ul>
 								</div>
 							</div>
 						</div>
 					</div>
+				
 				</footer>
 			</>)}
+			{branchData && (
+  <ThemeButton branchData={branchData as BranchData} />
+)}
+
+
+
 
 		</Fragment>
 	);

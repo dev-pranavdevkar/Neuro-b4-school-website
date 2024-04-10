@@ -8,6 +8,10 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+interface ContactFormProps {
+    branchData: BranchData | null;
+}
+
 const schema = yup.object().shape({
     name: yup.string().required('Name is required'),
     email: yup.string().email().required('Email is required'),
@@ -16,7 +20,7 @@ const schema = yup.object().shape({
     service: yup.string().required('Service is required'),
 });
 
-const ContactForm = () => {
+const ContactForm: React.FC<ContactFormProps> = ({ branchData }) => {
     const form = useRef<HTMLFormElement>(null);
 
     const {
@@ -72,7 +76,7 @@ const ContactForm = () => {
                             </div>
                             <div className="icon-content">
                                 <h4 className="dlab-tilte m-b5">Phone</h4>
-                                <p>+1 (315) 402-1234 <br /><br /></p>
+                                <p><a href={`tel:+${branchData?.mobile_number || '13154021234'}`}>{branchData.mobile_number}</a> <br /><br /></p>
                             </div>
                         </div>
                     </div>
@@ -85,7 +89,10 @@ const ContactForm = () => {
                             </div>
                             <div className="icon-content">
                                 <h4 className="dlab-tilte m-b5">Address</h4>
-                                <p>28 Princeton Drive, Syosset, New York 11791</p>
+                                <p><a href={`${branchData.map_url || 'https://www.google.com/maps/'}`} target='_blank'>{branchData.name},<br/
+                                >{branchData?.City?.name}, {branchData?.State?.name},<br/>
+                                {branchData?.Country?.name}</a>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -98,7 +105,7 @@ const ContactForm = () => {
                             </div>
                             <div className="icon-content">
                                 <h4 className="dlab-tilte m-b5">Email</h4>
-                                <p>contact@b4-school.com <br /><br /></p>
+                                <p><a href={`mailto:${branchData?.email || 'contact@b4-school.com'}`} target='_blank'>{branchData.email}</a> <br /><br /></p>
                             </div>
                         </div>
                     </div>
