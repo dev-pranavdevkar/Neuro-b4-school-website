@@ -83,11 +83,11 @@ class Index1 extends Component {
 									</div>
 								</div>
 							</div> */}
-							
-						
+
+
 						<FirstSafePreschoolNetwork />
 						<WhyIsEarlyChildhoodEducationImportant />
-						<div className="section-full bg-white content-inner-1" style={{ backgroundImage: "url(" + bgimg3 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
+						{/* <div className="section-full bg-white content-inner-1" style={{ backgroundImage: "url(" + bgimg3 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
 							<div className="container">
 								<div className="section-head text-center">
 									<h2 className="head-title text-secondry">About Our Team</h2>
@@ -95,22 +95,22 @@ class Index1 extends Component {
 								</div>
 								<TeacherSlider />
 							</div>
-						</div>
-						<div className="section-full bg-white content-inner-1">
-							<div className="container">
+						</div> */}
+						{/* <div className="section-full bg-white content-inner-1">
+							<div className="container"> */}
 								{/* <div className="section-head text-center">
 									<h2 className="head-title text-secondry">Gallery of our classes</h2>
 									<p>We provide three classes with nine to twenty children each aged twelve months to six years of age.</p>
 								</div> */}
-								<FilterTab />
-							</div>
-						</div>
-					
+								{/* <FilterTab /> */}
+							{/* </div>
+						</div> */}
+
 						<div className="section-full bg-white content-inner-1">
 							<div className="container">
 								<div className="section-head text-center">
-									<h2 className="head-title text-secondry">Testimonials about center</h2>
-									<p>We have an excellent teacher to child ratio at our Kindergarten to ensure that each child receives the attention he or she needs</p>
+									<h2 className="head-title text-secondry">Testimonials</h2>
+									<p>We have an excellent teacher to child ratio to ensure that each child receives the attention he or she needs</p>
 								</div>
 								<TestiMonialSlider />
 							</div>
@@ -141,8 +141,16 @@ function EducationBanner() {
 					<div className="row">
 						<div className="col-lg-6 col-md-12 col-sm-12 col-12">
 							<div className="section-head">
-								<h2 className="head-title text-yellow">Education from birth<br />begins with us</h2>
-								<p className="text-white">Our children&apos;s academy, together with one of the oldest private schools, created a joint school preparation project. The goal of the project is the harmonious development, socializationfor admission to the best educational institutions of our city.</p>
+
+								<h2 className="head-title text-yellow">Vision</h2>
+								<p className="text-white">Education is the passport to the world. No child should fall behind academically.</p>
+							</div>
+							<div className="section-head">
+
+								<h2 className="head-title text-yellow">Mission</h2>
+								<p className="text-white">We strive to provide a safe and learning
+									environment for preschool age children
+									to reach their maximum potential..</p>
 							</div>
 						</div>
 						<div className="col-lg-6 col-md-6 col-sm-12 col-12"></div>

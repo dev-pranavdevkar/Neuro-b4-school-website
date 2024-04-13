@@ -25,12 +25,13 @@ const bgimg3 = '/images/line2.png'
 interface BranchData {
 	name: string;
 	city_name: string;
-	mobile_number:string;
-	map_url:string;
-	facebook_url:string;
-	google_plus_url:string;
-	linkedin_url:string;
-	instagram_url:string;
+	mobile_number: string;
+	map_url: string;
+	facebook_url: string;
+	google_plus_url: string;
+	linkedin_url: string;
+	instagram_url: string;
+	branchData: {};
 }
 const Branch = () => {
 	const router = useRouter();
@@ -77,7 +78,7 @@ const Branch = () => {
 	const [branchData, setBranchData] = useState<BranchData | null>(null); // Specify BranchData as the type
 
 	useEffect(() => {
-		// Fetch branch data only if location is defined
+		
 		if (id) {
 			axiosInstance.get(`api/customer/v1/location/region/get/${id}`)
 				.then((response) => {
@@ -88,7 +89,7 @@ const Branch = () => {
 					console.error('Error fetching branch data:', error);
 				});
 		}
-	}, [id]); // Ensure useEffect runs when `id` changes
+	}, [id]); 
 
 	return (
 		<Fragment>
@@ -100,7 +101,7 @@ const Branch = () => {
 								<div className="dlab-topbar-left">
 									<ul>
 
-									<li><i className="fa fa-phone m-r5"></i><a className='text-light' href={`tel:+${branchData?.mobile_number || '13154021234'}`}>{branchData?.mobile_number || '917773969004'}</a></li>
+										<li><i className="fa fa-phone m-r5"></i><a className='text-light' href={`tel:+${branchData?.mobile_number || '13154021234'}`}>{branchData?.mobile_number || '917773969004'}</a></li>
 
 
 										<li>
@@ -142,63 +143,35 @@ const Branch = () => {
 									</div>
 									<ul className="nav navbar-nav">
 										<li className="active"><Link href={'#home'}>Home
-											{/* <i className="fa fa-chevron-down"></i> */}
+											
 										</Link>
-											{/* <ul className="sub-menu">
-												<li><Link href={"./"}>Home 1</Link></li>
-												<li><Link href={"/index-2"}>Home 2</Link></li>
-											</ul> */}
+										
 										</li>
 										<li><Link href={'#about'}>About
-											{/* <i className="fa fa-chevron-down"></i> */}
+											
 										</Link>
-											{/* <ul className="sub-menu">
-												<li><Link href={"/about-1"}>About Us 1</Link></li>
-												<li><Link href={"/about-2"}>About Us 2</Link></li>
-											</ul> */}
+										
 										</li>
-										{/* <li><Link href={'#'}>Classes <i className="fa fa-chevron-down"></i></Link>
-											<ul className="sub-menu">
-												<li><Link href={"/classes"}>Classes</Link></li>
-												<li><Link href={"/classes-details"}>Classes Details</Link></li>
-											</ul>
-										</li> */}
+									
 										<li><Link href={'#programs'}>Programs
-											{/* <i className="fa fa-chevron-down"></i> */}
+											
 										</Link>
-											{/* <ul className="sub-menu">
-												<li><Link href={"/teachers"}>Teachers</Link></li>
-												<li><Link href={"/teachers-details"}>Teachers Details</Link></li>
-											</ul> */}
+											
 										</li>
 										<li><Link href={'#teachers'}>Teachers
-											{/* <i className="fa fa-chevron-down"></i> */}
+											
 										</Link>
-											{/* <ul className="sub-menu">
-												<li><Link href={"/coming-soon"}>Comign Soon</Link></li>
-												<li><Link href={"/faqs"}>Faqs</Link></li>
-												<li><Link href={"/event"}>Event</Link></li>
-												<li><Link href={"/event-details"}>Event Details</Link></li>
-												<li><Link href={"/error-404"}>Error 404</Link></li>
-											</ul> */}
+										
 										</li>
 										<li><Link href={'#activities'}>Activities
-											{/* <i className="fa fa-chevron-down"></i> */}
+											
 										</Link>
-											{/* <ul className="sub-menu">
-												<li><Link href={"/blog-standard"}>Standard</Link></li>
-												<li><Link href={"/blog-classic-grid"}>Classic</Link></li>
-												<li><Link href={"/blog-details"}>Blog Details</Link></li>
-											</ul> */}
+											
 										</li>
 										<li><Link href={'#testimonial'}>Testimonial
-											{/* <i className="fa fa-chevron-down"></i> */}
+											
 										</Link>
-											{/* <ul className="sub-menu">
-												<li><Link href={"/gallery"}>Gallery Grid</Link></li>
-												<li><Link href={"/gallery-masonary"}>Gallery Masonary</Link></li>
-												<li><Link href={"/gallery-filter"}>Gallery Tiles Filter</Link></li>
-											</ul> */}
+											
 										</li>
 
 										<li><Link href={"#contact"}>Contact</Link></li>
@@ -234,7 +207,7 @@ const Branch = () => {
 
 
 						<OurPrograms />
-						
+
 
 						<FirstSafePreschoolNetwork />
 						<WhyIsEarlyChildhoodEducationImportant />
@@ -244,15 +217,12 @@ const Branch = () => {
 									<h2 className="head-title text-secondry">About Our Team</h2>
 									<p>We have an excellent teacher to child ratio at our Kindergarten to ensure that each child receives the attention he or she needs</p>
 								</div>
-								<TeacherSlider />
+								<TeacherSlider branchData={branchData as BranchData | null} />
 							</div>
 						</div>
 						<div className="section-full bg-white content-inner-1">
 							<div className="container">
-								{/* <div className="section-head text-center">
-									<h2 className="head-title text-secondry">Gallery of our classes</h2>
-									<p>We provide three classes with nine to twenty children each aged twelve months to six years of age.</p>
-								</div> */}
+
 								<FilterTab />
 							</div>
 						</div>
@@ -266,7 +236,7 @@ const Branch = () => {
 								<TestiMonialSlider />
 							</div>
 						</div>
-				
+
 						<ContactForm branchData={branchData as BranchData | null} />
 
 					</div>
@@ -295,11 +265,11 @@ const Branch = () => {
 											<li><Link href={"#testimonial"}>Testimonial</Link></li>
 											<li><Link href={"#contact"}>Contact</Link></li>
 
-											
+
 										</ul>
 									</div>
 								</div>
-								
+
 
 
 							</div>
@@ -321,12 +291,12 @@ const Branch = () => {
 							</div>
 						</div>
 					</div>
-				
+
 				</footer>
 			</>)}
 			{branchData && (
-  <ThemeButton branchData={branchData as BranchData} />
-)}
+				<ThemeButton branchData={branchData as BranchData} />
+			)}
 
 
 
