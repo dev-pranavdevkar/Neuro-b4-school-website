@@ -1,25 +1,50 @@
-import React, { Fragment, useRef } from 'react';
-import emailjs from 'emailjs-com';
+import React, { Fragment, useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import Header from '@/component/Layout/Header';
 import Footer from '@/component/Layout/Footer';
 import PageTitle from '@/component/Layout/PageTitle';
 import VideoPopup from '@/component/Element/VideoPopup';
 import { useRouter } from 'next/router';
-import { teamMembers } from '@/constants/db';
+import axiosInstance from '@/services/axios';
+import { baseUrl } from '@/config';
 //Images
 const bnr1 = '/images/line2.png';
 const bnr2 = '/images/background/bg4.jpg';
 const team1 = '/images/team/pic1.jpg';
 
+interface Member {
+    name: string;
+    position: string;
+    subject: string;
+    image: string;
+    description:string;
+    facebook_url:string;
+    google_plus_url:string;
+    instagram_url:string;
+    linkedin_url:string;
+    twitter_url:string;
+    skills:string;
+}
+
 const TeamMember = () => {
     const router = useRouter();
     const { team } = router.query;
-  
-    const form = useRef();
-    const memberId = team; // Assuming the router query provides the member ID
-    const member = teamMembers.find(member => member.id === memberId);
-    console.log("Pranav", member)
+
+    const memberId = team as string; // Assuming the router query provides the member ID
+
+    const [member, setMember] = useState<Member | null>(null);
+
+    useEffect(() => {
+        if (memberId) {
+            axiosInstance.get(`api/customer/v1/ourTeam/getTeam/${memberId}`)
+                .then((response) => {
+                    setMember(response.data.data || null);
+                })
+                .catch((error) => {
+                    console.error('Error fetching team member data:', error);
+                });
+        }
+    }, [memberId]);
 
     return (
         <Fragment>
@@ -27,27 +52,27 @@ const TeamMember = () => {
             <div className="page-content">
                 <PageTitle motherMenu="Teachers Details" activeMenu="Teachers Details" />
                 <div className="content-block">
-                    <div className="section-full bg-white content-inner-2 teacher-info" style={{ backgroundImage: "url(" + bnr1 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
+                    <div className="section-full bg-white content-inner-2 teacher-info" style={{ backgroundImage: `url(${bnr1})`, backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
                         <div className="container">
                             <div className="row">
                                 <div className="col-lg-6 col-md-12 col-sm-12 m-b15">
                                     <div className="teacher-meida">
-                                        {member && <img src={member.image} alt="" />}
+                                        {member && <img src={`${baseUrl}${member.image}`} alt={member.name} />}
                                     </div>
                                 </div>
                                 <div className="col-lg-6 col-md-12 col-sm-12 teacher-content align-self-center">
                                     {member && (
                                         <>
                                             <h2 className="teacher-title">{member.name}</h2>
-                                            <span className="teacher-coures">{member.role}</span>
-                                            <p className="m-b15">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don&apos;t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn.</p>
-                                            <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn&apos;t anything embarrassing hidden in the middle of text.</p>
+                                            <span className="teacher-coures">{member.position}</span>
+                                            <p className="m-b15">{member.description}</p>
+                                            <p className="m-b15">{member.skills}</p>
                                             <ul className="list-inline">
-                                                <li><Link href={"#"} ><i className="fa fa-facebook"></i></Link></li>
-                                                <li><Link href={"#"} ><i className="fa fa-google-plus"></i></Link></li>
-                                                <li><Link href={"#"} ><i className="fa fa-linkedin"></i></Link></li>
-                                                <li><Link href={"#"} ><i className="fa fa-instagram"></i></Link></li>
-                                                <li><Link href={"#"} ><i className="fa fa-twitter"></i></Link></li>
+                                            <li><Link href={member.facebook_url || "https://www.facebook.com/"}><i className="fa fa-facebook"></i></Link></li>
+                                                <li><Link href={`mailto:${member.google_plus_url || "contact@b4-school.com"}`}><i className="fa fa-google-plus"></i></Link></li>
+                                                <li><Link href={member.linkedin_url || "https://www.linkedin.com/"}><i className="fa fa-linkedin"></i></Link></li>
+                                                <li><Link href={member.instagram_url || "https://www.instagram.com/"}><i className="fa fa-instagram"></i></Link></li>
+                                                <li><Link href={member.twitter_url || "https://www.twitter.com/"}><i className="fa fa-twitter"></i></Link></li>
                                             </ul>
                                         </>
                                     )}
@@ -55,7 +80,7 @@ const TeamMember = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="section-full bg-white content-inner-2 about-content bg-img-fix" style={{ backgroundImage: "url(" + bnr2 + ")" }}>
+                    {/* <div className="section-full bg-white content-inner-2 about-content bg-img-fix" style={{ backgroundImage: `url(${bnr2})` }}>
                         <div className="container">
                             <div className="row">
                                 <div className="col-lg-12 col-md-12 col-sm-12 col-12 " style={{ visibility: "visible", animationDuration: "2s", animationDelay: "0.2s", animationName: "fadeIn" }}>
@@ -67,13 +92,13 @@ const TeamMember = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="section-full content-inner-2">
+                    </div> */}
+                    {/* <div className="section-full content-inner-2">
                         <div className="container">
                             <div className="row">
                                 <div className="col-lg-6 section-head">
                                     <h2 className="text-secondry">My Skills</h2>
-                                    <p className="m-b0">Suspendisse facilisis commodo lobortis. Nullam mollis lobortis ex vel faucibus. Proin nec viverra turpis. Nulla eget justo scelerisque, pretium purus vel, congue libero. Suspendisse potenti. Sed risus nisi  Suspendisse potenti. Sed risus nisi  Suspendisse potenti. Sed risus nisi </p>
+                                    <p className="m-b0">{member?.skills}</p>
                                 </div>
                                 <div className="col-lg-6">
                                     <div className="progress-section">
@@ -101,14 +126,13 @@ const TeamMember = () => {
                                     </div>
                                 </div>
                             </div>
-                        
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <Footer />
         </Fragment>
-    )
+    );
 }
 
 export default TeamMember;

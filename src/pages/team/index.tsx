@@ -25,39 +25,29 @@
 //     );
 // }
 
-import React,{Fragment, Component} from 'react';
+import React, { Fragment, Component } from 'react';
 import Link from 'next/link';
 import Header from '@/component/Layout/Header';
 import Footer from '@/component/Layout/Footer';
 import PageTitle from '@/component/Layout/PageTitle';
-import { teamMembers } from '@/constants/db';
+// import { teamMembers } from '@/constants/db';
+import TeamList from '@/component/Element/TeamList';
 
 const bnr1 = '/images/line2.png';
 
 
-// const teamData = [
-// 	{ image: '/images/team/sakshimam.jpg',name:'Ranjith Kumar Rikkala',role:'Founder', pagePath:''},
-// 	{ image: '/images/team/sakshimam.jpg', name:'Sakshi Raka',role:'CEO, India', pagePath:''},
-// 	{ image: '/images/team/Savita.jpg', name:'Savita Ruhal',role:'Director, Haryana, India', pagePath:''},
-// 	{ image: '/images/team/Marthe.jpg', name:'Marthe Lumbwe',role:'Director, South Africa', pagePath:''},
-// 	{ image: '/images/team/Kapata.jpg', name:'Katapa Nondaba',role:'Director, Zimbabwe', pagePath:''},
-// 	{ image: '/images/team/shay.jpg', name:'Shay Green',role:'Lead Teacher', pagePath:''},
-// 	{ image: '/images/team/teacher7B4 .jpg', name:'Vinesh Gudla',role:'Technical Lead', pagePath:''},
-// 	{ image: '/images/team/teacher3.jpg', name:'Jennifer Rose',role:'Curriculum Head', pagePath:''},
-// 	{ image: '/images/team/teacher4B4.jpg', name:'Praparna Basu',role:'Curriculum Designer', pagePath:''},
-// 	{ image: '/images/team/teacher5B4 .jpg', name:'Janelle Seeley',role:'Staff', pagePath:''},
-// 	{ image: '/images/team/teacher6B4.jpg', name:'Patricia Schuch',role:'Staff', pagePath:''},
-// ]
-console.log(teamMembers);
-class TeamMembers extends Component{
-	render(){
-		return(
+
+class TeamMembers extends Component {
+	
+	render() {
+		return (
 			<Fragment>
 				<Header />
-					<div className="page-content">
-						<PageTitle motherMenu="Team" activeMenu="Team" />
-						<div className="content-block">
-							<div className="section-full bg-white content-inner" style={{backgroundImage:"url("+ bnr1 +")", backgroundSize:"contain", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}>
+				<div className="page-content">
+					<PageTitle motherMenu="Team" activeMenu="Team" />
+					<div className="content-block">
+						<TeamList />
+						{/* <div className="section-full bg-white content-inner" style={{backgroundImage:"url("+ bnr1 +")", backgroundSize:"contain", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}>
 								<div className="container">
 									<div className="section-head text-center">
                                         
@@ -91,9 +81,10 @@ class TeamMembers extends Component{
 										))}
 									</div>	
 								</div>
-							</div>
-						</div>
+							</div> */}
+
 					</div>
+				</div>
 				<Footer />
 			</Fragment>
 		)

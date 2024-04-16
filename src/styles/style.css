@@ -16886,80 +16886,97 @@ pre {
     color: #000 !important;
 }
 
-.visiting-card{
-border: none;
-box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-
-}
-.visiting-card .img{
-  
-   height:100px !important;
-   width:100px !important;
-   object-fit:contain;
-   border:1px solid #ddd;
-   border-radius:100% !important;
+.visiting-card {
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 
 }
 
+.visiting-card .img {
 
- .visiting-card .card-subtitle{
+    height: 100px !important;
+    width: 100px !important;
+    object-fit: contain;
+    border: 1px solid #ddd;
+    border-radius: 100% !important;
+
+}
+
+
+.visiting-card .card-subtitle {
     margin-bottom: 0.75rem;
-    
- }
- .visiting-card  ul{
+
+}
+
+.visiting-card ul {
     list-style: none;
     padding-left: 0;
- }
- .visiting-card  ul li{
+}
+
+.visiting-card ul li {
     display: flex;
     align-items: start;
     margin-bottom: 5px;
- }
- .visiting-card  ul li i{
-    margin-right:10px;
+}
+
+.visiting-card ul li i {
+    margin-right: 10px;
     line-height: 1.5;
- }
- /* .visiting-card .branch-link{
+}
+
+/* .visiting-card .branch-link{
     font-weight: 600 !important;
     color: #3d56f0 !important;
  } */
 
- .country-card{
+.country-card {
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    border:none;
+    border: none;
     padding: 1rem;
-    
- }
 
- .country-card .border-area{
-    border:1px solid #ddd;
+}
+
+.country-card .border-area {
+    border: 1px solid #ddd;
     height: 100%;
-    
- }
- .country-card .flag-area{
+
+}
+
+.country-card .flag-area {
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
- }
- .country-card .h-80{
-    height:80%;
- }
+}
 
- .country-card .card-footer{
+.country-card .h-80 {
+    height: 80%;
+}
+
+.country-card .card-footer {
     background: #fff;
     padding: 0;
     border-top: none;
- }
- .country-card .card-body .card-footer .card-title{
-    margin-bottom:0
- }
+}
 
- .country-card .card-subtitle{
-    color:#3d56f0 !important;
- }
+.country-card .card-body .card-footer .card-title {
+    margin-bottom: 0
+}
 
- .country-card ul{
+.country-card .card-subtitle {
+    color: #3d56f0 !important;
+}
+
+.country-card ul {
     list-style: none;
-    padding-left:1rem
- }
+    padding-left: 1rem
+}
+
+.our-progrms-card img {
+    max-height: 250px;
+    object-fit: contain;
+}
+.our-progrms-card {
+    height: 100%;
+    margin-bottom:1rem;
+}
