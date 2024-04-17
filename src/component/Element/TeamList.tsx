@@ -13,9 +13,24 @@ const TeamList: React.FC<TeamListProps> = ({ branchData }) => {
 
     useEffect(() => {
         axiosInstance.get(`api/customer/v1/ourTeam/getAllTeam`)
-            .then((response) => {
-                setTeamMembers(response.data.data.rows);
-            })
+        
+        .then((response) => {
+            const sortedData = response.data.data.rows.sort((a, b) => {
+                // Convert id values to numbers for comparison
+                const idA = parseInt(a.id);
+                const idB = parseInt(b.id);
+                
+                // Compare the numeric values of the ids
+                if (idA < idB) {
+                    return -1; // idA comes before idB
+                } else if (idA > idB) {
+                    return 1; // idA comes after idB
+                } else {
+                    return 0; // ids are equal
+                }
+            });
+            setTeamMembers(sortedData);
+        })
             .catch((error) => {
                 console.error('Error fetching team data:', error);
             });

@@ -4,21 +4,44 @@ import Header from '@/component/Layout/Header';
 import Footer from '@/component/Layout/Footer';
 import PageTitle from '@/component/Layout/PageTitle';
 import { features } from 'process';
+import axiosInstance from '@/services/axios';
+import { baseUrl } from '@/config';
 //images
 const bnr1 = '/images/line2.png';
 
 
-const productData =[
-	{images: "/images/products/bottle.png", name: 'Water Bottle', available:'USA', price:'$19', shortDesc:"Our kid's 12 oz stainless steel water bottle is the perfect insulated bottle for school and everyday hydration.",features:['feature1', 'feature2']},	
-	{images: "/images/products/book1.jpg", name: 'Modello', available:'India', price:'$515', shortDesc:"Building blocks toys are the best early education toys for the children's intelligence.",features:['feature1', 'feature2']},	
-	{images: "/images/products/book2.jpg", name: 'Unicorn Lamp making kit' , available:'India', price:'$450', shortDesc:"Expand your imagination & create a beautiful table lamp for your own",features:['feature1', 'feature2']},	
-	{images: "/images/products/book3.jpg", name: 'Mould &Paint Unicorn', available:'India', price:'$420', shortDesc:"Activity Centres A wonderful hands-on arts and crafts activity for unicorn lovers ",features:['feature1', 'feature2']},	
-	{images: "/images/products/book4.jpg", name: 'Unicorn Surprise', available:'India', price:'$720', shortDesc:"Expand your imagination & create a beautiful craft by your own       ",features:['feature1', 'feature2']},	
-	
-];
+
 
 class Shop extends Component{
+	constructor(props) {
+		super(props);
+		this.state = {
+			productData: [],
+			error: null,
+			currentPage: 1,
+			itemsPerPage: 6
+		};
+	}
+	componentDidMount() {
+		axiosInstance.get('/api/customer/v1/product/getAllProducts')
+			.then((response) => {
+				console.log('API response:', response.data); // Log the response data
+				const products = response.data.data.rows || []; // Extract products array from API response
+				this.setState({ productData: products });
+			})
+			.catch((error) => {
+				console.error('Error fetching product data:', error);
+				this.setState({ error: 'Failed to fetch product data' });
+			});
+	}
+	
+
 	render(){
+		const { productData, error, currentPage, itemsPerPage } = this.state;
+		const indexOfLastItem = currentPage * itemsPerPage;
+		const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+		const currentItems = productData.slice(indexOfFirstItem, indexOfLastItem);
+		const totalPages = Math.ceil(productData.length / itemsPerPage);
 		return(
 			<Fragment>
 				<Header />
@@ -32,22 +55,22 @@ class Shop extends Component{
 										<div className="col-lg-4 col-md-6 col-sm-6" key={index}>
 											<div className="class-item">
 												<div className="class-media"> 
-													<img className='product-img' src={data.images} alt=""/>
+													<img className='product-img' src={`${baseUrl}${data.image}`} alt=""/>
 													<p>
 														<span>Avilable in </span> 
-														{data.available}
+														{data.availability}
 													</p>
 												</div>
 												<div className="class-info">
 													<h4><Link href={"/classes-details"}>{data.name}</Link></h4>
-													<p>{data.shortDesc}</p>
+													<p>{data.description}</p>
 													<ul className="schedule text-center">
-														<li className="bg-blue class-size"><span>Sold Upto</span> <span>30K</span> </li>
-														<li className="bg-green years-old"><span>Reviews</span> <span>4.5</span> </li>
-														<li className="bg-orange tution"><span>Price</span> <span>{data.price}</span> </li>
+														<li className="bg-blue class-size"><span>Sold Upto</span> <span>{data.sold}</span> </li>
+														<li className="bg-green years-old"><span>Reviews</span> <span>{data.rating}.0</span> </li>
+														<li className="bg-orange tution"><span>Price</span> <span>${data.price}</span> </li>
 													</ul>
                                                   <div>
-                                                  <button type="button" className="btn btn-primary w-100 mt-2 buy-now-btn">Buy Now</button>
+                                               <a href="http://">  <button type="button" className="btn btn-primary w-100 mt-2 buy-now-btn">Buy Now</button></a>
                                                   </div>
 												</div>
 											</div>
