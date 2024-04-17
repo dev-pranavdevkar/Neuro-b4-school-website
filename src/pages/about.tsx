@@ -10,6 +10,7 @@ import { SRLWrapper, useLightbox } from 'simple-react-lightbox';
 import AccordionBlog from '@/component/Element/AccordionBlog';
 import TestiMonialSlider from '@/component/Element/TestiMonialSlider';
 import VideoPopup from '@/component/Element/VideoPopup';
+import TeamList from '@/component/Element/TeamList';
 //Images
 const bnr1 = '/images/line2.png';
 const bnr2 = '/images/background/bg5.jpg';
@@ -58,7 +59,7 @@ function BackgroundBlog() {
 							{/* <div className="video-play">
 								<VideoPopup />
 							</div> */}
-							<h4 className='text-white'>Join Our New Session</h4>
+							{/* <h4 className='text-white'>Join Our New Session</h4> */}
 							<h2>Get in touch with us <br/><span className='text-yellow'> +1 (315) 402-1234</span></h2>
 							{/* <Link href={"./contect-us"} className="btn btn-md radius-xl">Contact Us</Link> */}
 						</div>
@@ -140,15 +141,16 @@ class About extends Component {
 						</div>
 
 						{/* Section-3 Start*/}
-						<div className="section-full bg-white content-inner-1" style={{ backgroundImage: "url(" + bnr4 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
+						{/* <div className="section-full bg-white content-inner-1" style={{ backgroundImage: "url(" + bnr4 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
 							<div className="container">
 								<div className="section-head text-center">
 									<h2 className="head-title text-secondry">About Our Team</h2>
-									<p>We have an excellent teacher to child ratio at our Kindergarten to ensure that each child receives the attention he or she needs</p>
+									<p>We have an excellent teacher to child ratio  to ensure that each child receives the attention he or she needs</p>
 								</div>
 								<TeacherSlider />
 							</div>
-						</div>
+						</div> */}
+						<TeamList branchData={null}/>
 						{/* Section-3 End*/}
 
 						<div className="section-full bg-white content-inner-2 about-content bg-img-fix" style={{ backgroundImage: "url(" + bnr2 + ")" }}>
@@ -158,7 +160,7 @@ class About extends Component {
 							<div className="container">
 								<div className="section-head text-center">
 									<h2 className="head-title text-secondry">Testimonials about center</h2>
-									<p>We have an excellent teacher to child ratio at our Kindergarten to ensure that each child receives the attention he or she needs</p>
+									<p>We have an excellent teacher to child ratio  to ensure that each child receives the attention he or she needs</p>
 								</div>
 								<TestiMonialSlider />
 							</div>
