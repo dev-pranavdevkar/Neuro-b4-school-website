@@ -43,8 +43,8 @@ class BannerSlider extends Component {
                             <div className="slide-content">
                                 <div className="slide-content-box container">
                                     <div className="slide-content-area">
-                                        <h2 className="slider-title">Children Academy <span>First Researchers</span></h2>
-                                        <p>Children&apos;s Academy will provide a stimulating and safe environment for children ages three months</p>
+                                        <h2 className="slider-title">Ignite Young Minds<span>with us</span></h2>
+                                        <p>Unlock potential, inspire curiosity. Enriching early education experiences.</p>
                                         <Link href={"/contact-us"} className="btn btn-md kids-btn radius-xl">Join us</Link>
                                     </div>
                                 </div>
