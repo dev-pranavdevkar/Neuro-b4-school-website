@@ -14,6 +14,7 @@ import WhyIsEarlyChildhoodEducationImportant from '@/component/Element/WhyIsEarl
 import TestiMonialSlider from '@/component/Element/TestiMonialSlider';
 import ContactForm from '@/component/Element/ContactForm';
 import ThemeButton from '@/component/Element/ThemeButton/ThemeButton';
+import TeamList from '@/component/Element/TeamList';
 
 const bnr = '/images/background/bg10.jpg';
 const bnr1 = '/images/line2.png'
@@ -38,42 +39,10 @@ const Branch = () => {
 	const { location } = router.query;
 	const id = location; // Assigning location directly to id
 
-	const [timerDays, setTimerDays] = useState('00');
-	const [timerHours, setTimerHours] = useState('00');
-	const [timerMinutes, setTimerMinutes] = useState('00');
-	const [timerSeconds, setTimerSeconds] = useState('00');
-	const intervalRef = useRef<NodeJS.Timeout | undefined>();
 
-	const startTimer = () => {
-		const WebsiteLaunchDate = new Date();
-		WebsiteLaunchDate.setMonth(WebsiteLaunchDate.getMonth() + 1);
-		const countdownDate = new Date(WebsiteLaunchDate.getFullYear(), WebsiteLaunchDate.getMonth(), WebsiteLaunchDate.getDate(), 23, 5).getTime();
 
-		intervalRef.current = setInterval(() => {
-			const now = new Date().getTime();
-			const distance = countdownDate - now;
-			const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-			const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-			const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-			const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-			if (distance < 0) {
-				clearInterval(intervalRef.current!);
-			} else {
-				setTimerDays(days.toString().padStart(2, '0'));
-				setTimerHours(hours.toString().padStart(2, '0'));
-				setTimerMinutes(minutes.toString().padStart(2, '0'));
-				setTimerSeconds(seconds.toString().padStart(2, '0'));
-			}
-		}, 1000);
-	};
 
-	useEffect(() => {
-		startTimer();
-		return () => {
-			clearInterval(intervalRef.current!);
-		};
-	}, []);
 
 	const [branchData, setBranchData] = useState<BranchData | null>(null); // Specify BranchData as the type
 
@@ -211,7 +180,7 @@ const Branch = () => {
 
 						<FirstSafePreschoolNetwork />
 						<WhyIsEarlyChildhoodEducationImportant />
-						<div className="section-full bg-white content-inner-1" style={{ backgroundImage: "url(" + bgimg3 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
+						{/* <div className="section-full bg-white content-inner-1" style={{ backgroundImage: "url(" + bgimg3 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
 							<div className="container">
 								<div className="section-head text-center">
 									<h2 className="head-title text-secondry">About Our Team</h2>
@@ -219,6 +188,9 @@ const Branch = () => {
 								</div>
 								<TeacherSlider branchData={branchData as BranchData | null} />
 							</div>
+						</div> */}
+						<div>
+							<TeamList branchData={branchData as BranchData | null}/>
 						</div>
 						<div className="section-full bg-white content-inner-1">
 							<div className="container">
