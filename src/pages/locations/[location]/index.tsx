@@ -175,20 +175,12 @@ const Branch = () => {
 						<EducationBanner />
 
 
-						<OurPrograms />
+						<OurPrograms branchData={branchData as BranchData | null} />
 
 
 						<FirstSafePreschoolNetwork />
 						<WhyIsEarlyChildhoodEducationImportant />
-						{/* <div className="section-full bg-white content-inner-1" style={{ backgroundImage: "url(" + bgimg3 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
-							<div className="container">
-								<div className="section-head text-center">
-									<h2 className="head-title text-secondry">About Our Team</h2>
-									<p>We have an excellent teacher to child ratio at our Kindergarten to ensure that each child receives the attention he or she needs</p>
-								</div>
-								<TeacherSlider branchData={branchData as BranchData | null} />
-							</div>
-						</div> */}
+					
 						<div>
 							<TeamList branchData={branchData as BranchData | null}/>
 						</div>

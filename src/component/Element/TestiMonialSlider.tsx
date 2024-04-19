@@ -1,34 +1,41 @@
 import React, { Component } from 'react';
 import Slider from "react-slick";
 import grid1 from '/images/testimonials/pic2.jpg';
-const bob="/images/testimonials/bob.png"
-const lora="/images/testimonials/lora.png"
+const profile = "/images/logo.png"
+
 
 const latestBlog = [
-	{
-		image: bob,
-		name: 'Aditya Mukesh',
-		containt: "I'm really happy that I chose B4-School for my daughter. The teachers and staff have been really helpful. Even during the pandemic, my daughter's learning didn't stop.",
-		city: 'Pune,Maharashtra'
-	},
-	{
-		image: lora,
-		name: 'Anjali Bhosle',
-		containt: "My child's development has greatly benefited from early education at B4-School, fostering increased interaction and confidence. Their imagination has been nurtured into active learning experiences.",
-		city: 'Pune,Maharashtra'
-	},
-	{
-		image: lora,
-		name: 'Avani Shah',
-		containt: "B4-School boasts a wonderful playground, an abundance of toys, and an educational approach that fosters well-rounded development, setting it apart as a unique school.",
-		city: 'Pune,Maharashtra'
-	},
-	{ image: lora, name: 'Sandhya Salunkhe', containt: "The school members and the faculties are doing a great job. The facilities are very good for children. I personally like B4-School because the quality of education is too good. Thank you for giving good quality education and support for children.", city: 'Pune,Maharashtra' },
-	{ image: bob, name: 'Sourabh Khot', containt: "B4-School The International School, BTM, is one of the best schools in Pune. The staff and teachers are very polite. My overall experience has been very good with B4-School BTM. My children love the activities and they are doing very well in their academics.", city: 'Pune,Maharashtra' },
-]
+    {
+        name: 'Aditya Mukesh',
+        content: "B4-School is amazing! My child loves it there, and the teachers are really helpful. It's a great place for learning. The school's environment is very positive, which makes me confident in my child's education.",
+        city: 'Pune, Maharashtra'
+    },
+    {
+        name: 'Anjali Bhosle',
+        content: "I'm so happy with B4-School! The staff are friendly, and my child has learned a lot. It's a wonderful school. The facilities are well-maintained, and the curriculum is engaging for children.",
+        city: 'Pune, Maharashtra'
+    },
+    {
+        name: 'Avani Shah',
+        content: "B4-School is fantastic! My child enjoys the activities, and the teachers are very caring. I highly recommend it. The school encourages creativity and critical thinking, which I appreciate as a parent.",
+        city: 'Pune, Maharashtra'
+    },
+    {
+        name: 'Sandhya Salunkhe',
+        content: "I'm really impressed with B4-School! The teachers are supportive, and my child is thriving. It's a top-notch school. The extracurricular activities offered by the school enhance my child's overall development.",
+        city: 'Pune, Maharashtra'
+    },
+    {
+        name: 'Sourabh Khot',
+        content: "B4-School is excellent! The sense of community is wonderful, and my child is making great progress. It's a fantastic choice for parents. The school's focus on character-building sets it apart from others.",
+        city: 'Pune, Maharashtra'
+    },
+];
+
+
 
 class TestiMonialSlider extends Component<{}> {
-    slider: Slider | null = null; // Declare slider property and initialize it to null
+	slider: Slider | null = null; // Declare slider property and initialize it to null
 
 	constructor(props: {}) {
 		super(props);
@@ -80,14 +87,16 @@ class TestiMonialSlider extends Component<{}> {
 							<div className="item" key={index}>
 								<div className="client-box">
 									<div className="testimonial-detail clearfix">
-										<div className="testimonial-pic radius">
-											<img src={item.image} width="100" height="100" alt="" />
+										<div className="testimonial-pic radius ">
+											<div className='d-flex align-items-center h-100'>
+												<img src={profile} alt="" />
+											</div>
 										</div>
 										<h5 className="testimonial-name m-t0 m-b5">{item.name}</h5>
 										<span>Parents</span>
 									</div>
 									<div className="testimonial-text">
-										<p>{item.containt}</p>
+										<p>{item.content}</p>
 									</div>
 								</div>
 							</div>

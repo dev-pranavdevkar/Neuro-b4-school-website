@@ -1,13 +1,46 @@
-import React from 'react'
-import Link from 'next/link'
-const bgimg1 = '/images/line.png'
-export default function OurPrograms() {
-    const iconBlog2 = [
-        { icon: <i className="flaticon-rattle text-blue" />, title: 'Child Watch', info: 'B4-School is a parent’s friend at all times and is a great avenue for kids to spend a fun morning or afternoon under the care of our trained teachers.' },
-        { icon: <i className="flaticon-bricks text-green" />, title: 'Preschool', info: 'Developing vocabulary, attention span, reading and writing skills with innovative methods and preparing for primary school.' },
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import axiosInstance from '@/services/axios';
+import { baseUrl } from '@/config';
+const bgimg1 = '/images/line.png';
 
-        // { icon: <i className="flaticon-puzzle text-orange" />, title: 'Goodie', },
-    ];
+interface ProgramData {
+    id: string;
+    name: string;
+    description: string;
+    region_id: number;
+    isShowOnHomePage: boolean;
+}
+
+interface ProgramsProps {
+    branchData: BranchData | null; // Assuming BranchData is the type of branchData
+}
+
+const Programs: React.FC<ProgramsProps> = ({ branchData }) => {
+    const [programsData, setProgramsData] = useState<ProgramData[]>([]);
+
+    useEffect(() => {
+        axiosInstance.get(`api/customer/v1/program/getAllProgram`)
+            .then((response) => {
+                const sortedData = response.data.data.rows.sort((a: ProgramData, b: ProgramData) => {
+                    return parseInt(a.id) - parseInt(b.id); // Sort by id
+                });
+                setProgramsData(sortedData);
+            })
+            .catch((error) => {
+                console.error('Error fetching Programs:', error);
+            });
+    }, []);
+
+    useEffect(() => {
+        console.log("Programs are", programsData);
+    }, [programsData]); // Listen for changes in programsData
+
+    // Apply filter based on the presence of branchData.id
+    const filteredProgramsData = branchData?.id
+        ? programsData.filter(data => data.region_id === branchData.id)
+        : programsData.filter(data => data.isShowOnHomePage);
+
     return (
         <>
             <div className="section-full bg-white content-inner-2 about-box" style={{ backgroundImage: "url(" + bgimg1 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
@@ -23,12 +56,12 @@ export default function OurPrograms() {
                             </div>
                         </div>
                         <div className="col-lg-5 col-md-12 col-sm-12 col-12">
-                            {iconBlog2.map((item, index) => (
+                            {filteredProgramsData.map((item, index) => (
                                 <div className="icon-bx-wraper left" key={index}>
-                                    <div className="icon-lg m-b20"> <span className="icon-cell">{item.icon}</span> </div>
+                                    <div className="icon-lg m-b20"> <span className="icon-cell"><i className="flaticon-rattle text-blue" /></span> </div>
                                     <div className="icon-content">
-                                        <h2 className="dlab-tilte">{item.title}</h2>
-                                        <p>{item.info}</p>
+                                        <h2 className="dlab-tilte">{item.name}</h2>
+                                        <p>{item.description}</p>
                                     </div>
                                 </div>
                             ))}
@@ -39,3 +72,5 @@ export default function OurPrograms() {
         </>
     )
 }
+
+export default Programs;
