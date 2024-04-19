@@ -5,10 +5,23 @@ import Link from 'next/link'
 import Carousel from 'react-bootstrap/Carousel'
 
 const carouselBlog = [
-	{image: '/images/main-slider/slide1.jpg' },	
-	{image: '/images/main-slider/slide2.jpg' },	
-	{image: '/images/main-slider/slide3.jpg' },	
+    {
+        image: '/images/main-slider/slide1.jpg',
+        title: 'B4-School',
+        description: 'We prepare preschoolers for school.'
+    },
+    {
+        image: '/images/main-slider/slide2.jpg',
+        title: 'English & Math',
+        description: 'Helps in effective communication and problem-solving.'
+    },
+    {
+        image: '/images/main-slider/slide3.jpg',
+        title: 'Art & Physical Education',
+        description: 'Promotes child’s creativity and encourages kids to stay healthy.'
+    },
 ];
+
 
 class BannerSlider extends Component{
 			
@@ -28,8 +41,8 @@ class BannerSlider extends Component{
 							<div className="slide-content">
 								<div className="slide-content-box container">
 									<div className="slide-content-area">
-										<h2 className="slider-title">Children Academy <span>First ReseaArchers</span></h2>
-										<p>Children&apos;s Academy will provide a stimulating and safe environment for children ages three month</p>
+										<h2 className="slider-title">{item.title}</h2>
+										<p>{item.description}</p>
 										<Link href={"./contect-us"} className="btn btn-md kids-btn radius-xl">Join us</Link>
 									</div>
 								</div>

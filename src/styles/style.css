@@ -10432,6 +10432,7 @@ ul[class*="list-"] {
     position: relative;
     display: inline-block;
     border: 5px solid #FFF;
+    
 }
 
 .testimonial-pic.radius {
@@ -10441,7 +10442,7 @@ ul[class*="list-"] {
 
 .testimonial-pic.radius img {
     width: 100%;
-    height: 100px;
+    height: 60px;
     border-radius: 100%;
     object-fit: contain;
     -webkit-border-radius: 100%;
@@ -10458,6 +10459,7 @@ ul[class*="list-"] {
     height: 100px;
     width: 100px;
 }
+
 
 .quote-left,
 .quote-right {

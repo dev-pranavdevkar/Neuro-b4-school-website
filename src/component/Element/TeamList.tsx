@@ -41,9 +41,10 @@ const TeamList: React.FC<TeamListProps> = ({ branchData }) => {
     }, [teamMembers]); // Listen for changes in teamMembers
 
     // Apply filter based on the presence of branchData.id
-    const filteredTeamMembers = branchData?.id 
-        ? teamMembers.filter(data => data.region_id === branchData.id) 
-        : teamMembers.filter(data => data.region_id === null);
+    const filteredTeamMembers = branchData?.id
+    ? teamMembers.filter(data => data.region_id === branchData.id)
+    : teamMembers.filter(data => data.isShowOnHomePage);
+
 
     return (
         <div>
