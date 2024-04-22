@@ -99,7 +99,7 @@ const Locations = () => {
                                                                 <ul>
                                                                     {city.Regions.map((region, index) => (
                                                                         <li key={index}>
-                                                                            <i className="fa fa-globe" aria-hidden="true"></i> <Link href={`/locations/${region.id}`}>{region.name}</Link>
+                                                                            <i className="fa fa-globe" aria-hidden="true"></i> <Link href={`/locations/${region.id}`} target='_blank'>{region.name}</Link>
                                                                         </li>
                                                                     ))}
                                                                 </ul>

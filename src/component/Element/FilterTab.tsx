@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Masonry from 'react-masonry-component';
 import SimpleReactLightbox, { SRLWrapper, useLightbox } from 'simple-react-lightbox'; // Combined import statement for SimpleReactLightbox
+import axiosInstance from '@/services/axios';
+import { baseUrl } from '@/config';
 
 // Define image paths
 const gallery1 = '/images/gallery/pic1.jpg';
@@ -27,11 +29,25 @@ const imageBlog = [
     { Large_img: gallery6, tag: ['Math'] },
 ];
 
+interface ActivitiesData {
+    id: string;
+    name: string;
+    description: string;
+    region_id: number;
+    isShowOnHomePage: boolean;
+}
+
+interface ActivitiesProps {
+    branchData: BranchData | null; // Assuming BranchData is the type of branchData
+    activitiesData: ActivitiesData[]; // Pass activitiesData as prop
+}
+
 // Light Gallery Icon component
-const Iconimage = ({ imageToOpen }: { imageToOpen: number | string }) => {
+const Iconimage = ({ imageToOpen }: { imageToOpen: string }) => {
     const { openLightbox } = useLightbox();
+
     return (
-        <Link href="#" onClick={() => openLightbox(Number(imageToOpen))} className="">
+        <Link href="#" onClick={() => openLightbox(imageToOpen)} className="">
             <i className="fa fa-search icon-bx-xs"></i>
         </Link>
     );
@@ -45,7 +61,7 @@ const masonryOptions = {
 const imagesLoadedOptions = { background: '.my-bg-image-el' };
 
 // FilterTab component
-function FilterTab() {
+function FilterTab({ branchData, activitiesData }: ActivitiesProps) {
     const [tag, setTag] = useState('Show All');
     const [filteredImages, setFilteredImages] = useState<{ Large_img: string; tag: string[]; }[]>([]);
 
@@ -78,31 +94,22 @@ function FilterTab() {
             <SimpleReactLightbox>
                 <SRLWrapper >
                     <div className="row dlab-gallery-listing gallery-grid-4 gallery mfp-gallery" data-wow-duration="2s" data-wow-delay="0.2s">
-                        {/* <Masonry
-                            className={'my-gallery-class'} // Masonry component
-                            options={masonryOptions}
-                            disableImagesLoaded={false}
-                            updateOnEachImageLoad={false}
-                            imagesLoadedOptions={imagesLoadedOptions}
-                        > */}
-                            {/* Render filtered images */}
-                            {filteredImages.map((item, index) => (
-                                <div className="Art card-container col-lg-3 col-md-6 col-sm-6 wow zoomIn" key={index}>
-                                    <div className="dlab-box frame-box m-b30">
-                                        <div className="dlab-thum dlab-img-overlay1">
-                                            <img src={item.Large_img} alt="" />
-                                            <div className="overlay-bx">
-                                                <div className="overlay-icon">
-                                                    {/* Pass imageToOpen prop */}
-                                                    <Iconimage imageToOpen={item.Large_img} />
-                                                </div>
+                        {/* Render filtered images */}
+                        {filteredImages.map((item, index) => (
+                            <div className="Art card-container col-lg-3 col-md-6 col-sm-6 wow zoomIn" key={index}>
+                                <div className="dlab-box frame-box m-b30">
+                                    <div className="dlab-thum dlab-img-overlay1">
+                                        <img src={item.Large_img} alt="" />
+                                        <div className="overlay-bx">
+                                            <div className="overlay-icon">
+                                                {/* Pass imageToOpen prop */}
+                                                <Iconimage imageToOpen={item.Large_img} />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            ))}
-                        {/* </Masonry> */}
-                        {/* Masonry issue solved */}
+                            </div>
+                        ))}
                     </div>
                 </SRLWrapper>
             </SimpleReactLightbox>
@@ -120,4 +127,24 @@ const TagLi = ({ name, handlesettag, tagActive }: { name: string; handlesettag: 
     );
 };
 
-export default FilterTab;
+// Parent component responsible for fetching data
+const ParentComponent = () => {
+    const [activitiesData, setActivitiesData] = useState<ActivitiesData[]>([]);
+
+    useEffect(() => {
+        axiosInstance.get(`api/customer/v1/gallery/getAllImages`)
+            .then((response) => {
+                const sortedData = response.data.data.rows.sort((a: ActivitiesData, b: ActivitiesData) => {
+                    return parseInt(a.id) - parseInt(b.id); // Sort by id
+                });
+                setActivitiesData(sortedData);
+            })
+            .catch((error) => {
+                console.error('Error fetching Activities:', error);
+            });
+    }, []);
+
+    return <FilterTab branchData={null} activitiesData={activitiesData} />;
+};
+
+export default ParentComponent;

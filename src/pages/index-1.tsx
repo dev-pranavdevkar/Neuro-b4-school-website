@@ -35,7 +35,7 @@ class Index1 extends Component {
 				<Header />
 				<div className="page-content bg-white">
 					{ /* Slider Banner */}
-					<BannerSlider />
+					<BannerSlider branchData={null} />
 					{ /* Slider Banner */}
 
 
@@ -57,7 +57,7 @@ class Index1 extends Component {
 						<EducationBanner />
 
 
-						<OurPrograms />
+						<OurPrograms branchData={null} />
 						{/* <EducationBanner /> */}
 
 						{/* <div className="section-full bg-white content-inner-1 text-center">
@@ -97,8 +97,8 @@ class Index1 extends Component {
 							</div>
 						</div> */}
 						{/* <div className="section-full bg-white content-inner-1">
-							<div className="container"> */}
-								{/* <div className="section-head text-center">
+							<div className="container">
+								<div className="section-head text-center">
 									<h2 className="head-title text-secondry">Gallery of our classes</h2>
 									<p>We provide three classes with nine to twenty children each aged twelve months to six years of age.</p>
 								</div> */}

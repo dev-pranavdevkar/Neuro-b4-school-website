@@ -38,16 +38,12 @@ const Branch = () => {
 	const router = useRouter();
 	const { location } = router.query;
 	const id = location; // Assigning location directly to id
-
-
-
-
-
-
+	const [isScrolled, setIsScrolled] = useState(false);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [branchData, setBranchData] = useState<BranchData | null>(null); // Specify BranchData as the type
 
 	useEffect(() => {
-		
+
 		if (id) {
 			axiosInstance.get(`api/customer/v1/location/region/get/${id}`)
 				.then((response) => {
@@ -58,7 +54,34 @@ const Branch = () => {
 					console.error('Error fetching branch data:', error);
 				});
 		}
-	}, [id]); 
+	}, [id]);
+	useEffect(() => {
+		const handleScroll = () => {
+			const scrollTop = window.pageYOffset;
+
+			if (scrollTop > 50) {
+				setIsScrolled(true);
+			} else {
+				setIsScrolled(false);
+			}
+		};
+
+		window.addEventListener('scroll', handleScroll);
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, []);
+
+	const toggleMenu = () => {
+		setIsMenuOpen(!isMenuOpen);
+	};
+	const scrollToSection = (id: any) => {
+		const element = document.getElementById(id);
+		if (element) {
+			element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		}
+	};
 
 	return (
 		<Fragment>
@@ -91,7 +114,7 @@ const Branch = () => {
 						</div>
 					</div>
 					{/* main header */}
-					<div className="sticky-header main-bar-wraper navbar-expand-lg">
+					<div className={`sticky-header ${isScrolled ? 'fixed-top' : ''} main-bar-wraper navbar-expand-lg`}>
 						<div className="main-bar clearfix ">
 							<div className="container clearfix">
 								{/*  website logo */}
@@ -111,36 +134,36 @@ const Branch = () => {
 										<Link href='/' className="dez-page"><img src={''} alt="" /></Link>
 									</div>
 									<ul className="nav navbar-nav">
-										<li className="active"><Link href={'#home'}>Home
-											
+										<li className={`nav-item ${router.pathname === '/' ? 'active' : ''}`}><Link href={'#home'}>Home
+
 										</Link>
-										
+
 										</li>
-										<li><Link href={'#about'}>About
-											
+										<li className={`nav-item ${router.pathname === '#about' ? 'active' : ''}`}><Link href={'#about'}>About
+
 										</Link>
-										
+
 										</li>
-									
+
 										<li><Link href={'#programs'}>Programs
-											
+
 										</Link>
-											
+
 										</li>
 										<li><Link href={'#teachers'}>Teachers
-											
+
 										</Link>
-										
+
 										</li>
 										<li><Link href={'#activities'}>Activities
-											
+
 										</Link>
-											
+
 										</li>
 										<li><Link href={'#testimonial'}>Testimonial
-											
+
 										</Link>
-											
+
 										</li>
 
 										<li><Link href={"#contact"}>Contact</Link></li>
@@ -152,57 +175,58 @@ const Branch = () => {
 					{/* Main header END */}
 				</header>
 				<div className="page-content bg-white">
-					{ /* Slider Banner */}
-					<BannerSlider />
-					{ /* Slider Banner */}
-
+					<section  id='home'>
+						<BannerSlider branchData={branchData as BranchData | null} />
+					</section>
 
 
 					<div className="content-block">
-						{/*  About Us */}
 
 
-
-						<div className="section-full bg-white content-inner-1 about-kids" style={{ backgroundImage: "url(" + bnr1 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
-							<CoreCurriculum />
-							<div className="childern-box">
-								<div className="childern-1"><img src={Children1} alt="" /></div>
-								<div className="childern-2"><img src={Children2} alt="" /></div>
+						<section className='pt-5' id='about'>
+							<div className="section-full bg-white content-inner-1 about-kids" style={{ backgroundImage: "url(" + bnr1 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
+								<CoreCurriculum />
+								<div className="childern-box">
+									<div className="childern-1"><img src={Children1} alt="" /></div>
+									<div className="childern-2"><img src={Children2} alt="" /></div>
+								</div>
 							</div>
-						</div>
-						{/*  About Us End*/}
-
+						</section>
 						<EducationBanner />
 
-
-						<OurPrograms branchData={branchData as BranchData | null} />
-
+						<section className='pt-5' id='programs'>
+							<OurPrograms branchData={branchData as BranchData | null} />
+						</section>
 
 						<FirstSafePreschoolNetwork />
 						<WhyIsEarlyChildhoodEducationImportant />
-					
-						<div>
-							<TeamList branchData={branchData as BranchData | null}/>
-						</div>
-						<div className="section-full bg-white content-inner-1">
-							<div className="container">
 
-								<FilterTab />
-							</div>
-						</div>
+						<section className='pt-5' id='teachers'>
+							<TeamList branchData={branchData as BranchData | null} />
+						</section>
 
-						<div className="section-full bg-white content-inner-1">
-							<div className="container">
-								<div className="section-head text-center">
-									<h2 className="head-title text-secondry">Testimonials about center</h2>
-									<p>We have an excellent teacher to child ratio at our Kindergarten to ensure that each child receives the attention he or she needs</p>
+						<section id='activities'>
+							<div className="section-full bg-white content-inner-1">
+								<div className="container">
+
+									<FilterTab branchData={branchData as BranchData | null} />
 								</div>
-								<TestiMonialSlider />
 							</div>
-						</div>
-
-						<ContactForm branchData={branchData as BranchData | null} />
-
+						</section>
+						<section className='pt-5' id='testimonial'>
+							<div className="section-full bg-white content-inner-1">
+								<div className="container">
+									<div className="section-head text-center">
+										<h2 className="head-title text-secondry">Testimonials about center</h2>
+										<p>We have an excellent teacher to child ratio at our Kindergarten to ensure that each child receives the attention he or she needs</p>
+									</div>
+									<TestiMonialSlider branchData={branchData as BranchData | null} />
+								</div>
+							</div>
+						</section>
+						<section className='pt-5' id='contact'>
+							<ContactForm branchData={branchData as BranchData | null} />
+						</section>
 					</div>
 				</div>
 				<footer className="site-footer">
