@@ -7,6 +7,7 @@ import axios from 'axios';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import axiosInstance from '@/services/axios';
 
 interface ContactFormProps {
     branchData: BranchData | null;
@@ -15,9 +16,9 @@ interface ContactFormProps {
 const schema = yup.object().shape({
     name: yup.string().required('Name is required'),
     email: yup.string().email().required('Email is required'),
-    contact_number: yup.string().required('Contact No. is required'),
-    country_name: yup.string().required('Country name is required'),
-    service: yup.string().required('Service is required'),
+    mobile_number: yup.string().required('Contact No. is required'),
+    // country_code: yup.string().required('Country name is required'),
+    message: yup.string().required('Message is required'),
 });
 
 const ContactForm: React.FC<ContactFormProps> = ({ branchData }) => {
@@ -32,8 +33,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ branchData }) => {
 
     const onSubmit = async (data: any) => {
         try {
-            const res = await axios.post(
-                'https://2f05-103-120-251-245.in.ngrok.io/api/contactUs',
+            const res = await axiosInstance.post(
+                '/api/customer/v1/enquiry/general',
                 { ...data }
             ).then((response) => {
                 let responseData = response.data;
@@ -76,7 +77,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ branchData }) => {
                             </div>
                             <div className="icon-content">
                                 <h4 className="dlab-tilte m-b5">Phone</h4>
-                                <p><a href={`tel:+${branchData?.mobile_number || '13154021234'}`}>{branchData.mobile_number}</a> <br /><br /></p>
+                                <p><a href={`tel:+${branchData?.mobile_number || '13154021234'}`}>{branchData?.mobile_number || '13154021234'}</a> <br /><br /></p>
                             </div>
                         </div>
                     </div>
@@ -89,9 +90,9 @@ const ContactForm: React.FC<ContactFormProps> = ({ branchData }) => {
                             </div>
                             <div className="icon-content">
                                 <h4 className="dlab-tilte m-b5">Address</h4>
-                                <p><a href={`${branchData.map_url || 'https://www.google.com/maps/'}`} target='_blank'>{branchData.name},<br/
-                                >{branchData?.City?.name}, {branchData?.State?.name},<br/>
-                                {branchData?.Country?.name}</a>
+                                <p><a href={`${branchData?.map_url || 'https://www.google.com/maps/'}`} target='_blank'>{branchData?.name || '28 Princeton Drive'},<br/
+                                >{branchData?.City?.name || 'Syosset'}, {branchData?.State?.name || 'New York'},<br/>
+                                {branchData?.Country?.name || ' 11791'}</a>
                                 </p>
                             </div>
                         </div>
@@ -105,7 +106,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ branchData }) => {
                             </div>
                             <div className="icon-content">
                                 <h4 className="dlab-tilte m-b5">Email</h4>
-                                <p><a href={`mailto:${branchData?.email || 'contact@b4-school.com'}`} target='_blank'>{branchData.email}</a> <br /><br /></p>
+                                <p><a href={`mailto:${branchData?.email || 'contact@b4-school.com'}`} target='_blank'>{branchData?.email || 'contact@b4-school.com' }</a> <br /><br /></p>
                             </div>
                         </div>
                     </div>
@@ -131,20 +132,20 @@ const ContactForm: React.FC<ContactFormProps> = ({ branchData }) => {
                             </div>
                             <div className="col-md-4 col-sm-4">
                                 <div className="form-group">
-                                    <input {...register('contact_number')} type="text" className="form-control" placeholder="Phone" />
-                                    {/* {errors?.contact_number && <small style={{color: 'red'}}>{errors?.contact_number?.message}</small>} */}
+                                    <input {...register('mobile_number')} type="text" className="form-control" placeholder="Phone" />
+                                    {/* {errors?.mobile_number && <small style={{color: 'red'}}>{errors?.mobile_number?.message}</small>} */}
                                 </div>
                             </div>
-                            <div className="col-md-4 col-sm-4">
+                            {/* <div className="col-md-4 col-sm-4">
                                 <div className="form-group">
-                                    <input {...register('country_name')} type="text" className="form-control" placeholder="Enter Country name" />
-                                    {/* {errors?.country_name && <small style={{color: 'red'}}>{errors?.country_name?.message}</small>} */}
+                                    <input {...register('country_code')} type="text" className="form-control" placeholder="Enter Country name" />
+                                    {errors?.country_code && <small style={{color: 'red'}}>{errors?.country_code?.message}</small>}
                                 </div>
-                            </div>
-                            <div className="col-md-4 col-sm-4">
+                            </div> */}
+                            <div className="col-md-12 col-sm-12">
                                 <div className="form-group">
-                                    <input {...register('service')} type="text" className="form-control" placeholder="Enter Services" />
-                                    {/* {errors?.service && <small style={{color: 'red'}}>{errors?.service?.message}</small>} */}
+                                    <textarea aria-multiline aria-rowspan={5} {...register('message')} type="text" className="form-control" placeholder="Enter messages" />
+                                    {/* {errors?.message && <small style={{color: 'red'}}>{errors?.message?.message}</small>} */}
                                 </div>
                             </div>
                             <div className="col-md-12 col-sm-12 text-center">
