@@ -61,7 +61,7 @@ function BackgroundBlog() {
 							</div> */}
 							{/* <h4 className='text-white'>Join Our New Session</h4> */}
 							<h2>Get in touch with us <br/><span className='text-yellow'> +1 (315) 402-1234</span></h2>
-							{/* <Link href={"./contect-us"} className="btn btn-md radius-xl">Contact Us</Link> */}
+							{/* <Link href={"/contect-us"} className="btn btn-md radius-xl">Contact Us</Link> */}
 						</div>
 					</div>
 				</div>
@@ -88,7 +88,7 @@ function BackgroundBlog2() {
 							</h2>
 							<p className="text-white">We strive to provide a safe and learning <br />environment for preschool age children <br />to reach their maximum potential.</p>
 							{/* <h4 className="text-white">Join Our New Session</h4> */}
-							{/* <Link href={"./contect-us"} className="btn btn-md radius-xl">Read More</Link> */}
+							{/* <Link href={"/contect-us"} className="btn btn-md radius-xl">Read More</Link> */}
 						</div>
 					</div>
 				</div>
