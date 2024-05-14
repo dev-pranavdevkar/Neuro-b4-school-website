@@ -58,7 +58,7 @@ function BackgroundBlog(){
 								<VideoPopup />
 							</div>
 							<h2>Let Your Kids Have an Amazing<br/>Time at the Park</h2>
-							<Link href={"/contect-us"} className="btn btn-md radius-xl">Read More</Link>
+							<Link href={"/contact-us"} className="btn btn-md radius-xl">Read More</Link>
 						</div>
 					</div>
 				</div>
@@ -75,7 +75,7 @@ function BackgroundBlog2(){
 						<div className="section-head text-center">
 							<h4 className="text-white">Join Our New Session</h4>
 							<h2>Call To Enrol Your Child <br/><span className="text-yellow">222 4444 000</span></h2>
-							<Link href={"/contect-us"} className="btn btn-md radius-xl">Read More</Link>
+							<Link href={"/contact-us"} className="btn btn-md radius-xl">Read More</Link>
 						</div>
 					</div>
 				</div>
