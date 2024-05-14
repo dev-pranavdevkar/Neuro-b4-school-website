@@ -57,7 +57,7 @@ const BannerSlider: React.FC<BannersProps> = ({ branchData }) => {
                                 <div className="slide-content-area">
                                     <h2 className="slider-title">{item.title}</h2>
                                     <p>{item.description}</p>
-                                    <Link href={"/contect-us"} className="btn btn-md kids-btn radius-xl">Join us</Link>
+                                    <Link href={"/contact-us"} className="btn btn-md kids-btn radius-xl">Join us</Link>
                                 </div>
                             </div>
                         </div>
