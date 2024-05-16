@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Masonry from 'react-masonry-component';
 import SimpleReactLightbox, { SRLWrapper, useLightbox } from 'simple-react-lightbox'; // Combined import statement for SimpleReactLightbox
@@ -41,7 +41,9 @@ interface ActivitiesProps {
     branchData: BranchData | null; // Assuming BranchData is the type of branchData
     activitiesData: ActivitiesData[]; // Pass activitiesData as prop
 }
-
+interface TeamListProps {
+    branchData: BranchData | null; // Assuming BranchData is the type of branchData
+}
 // Light Gallery Icon component
 const Iconimage = ({ imageToOpen }: { imageToOpen: string }) => {
     const { openLightbox } = useLightbox();
@@ -62,13 +64,60 @@ const imagesLoadedOptions = { background: '.my-bg-image-el' };
 
 // FilterTab component
 function FilterTab({ branchData, activitiesData }: ActivitiesProps) {
-    const [tag, setTag] = useState('Show All');
-    const [filteredImages, setFilteredImages] = useState<{ Large_img: string; tag: string[]; }[]>([]);
+    const filterOptions=[
+        {label:'Show All',value:''},
+        {label:'English',value:'english'},
+        {label:'Art',value:'art'},
+        {label:'Math',value:'math'},
+        {label:'Physical Education',value:'physical-education'},
+    ]
+    const [tag, setTag] = useState(filterOptions[0]);
+    // const [filteredImages, setFilteredImages] = useState<{ Large_img: string; tag: string[]; }[]>([]);
+    const [teamMembers, setTeamMembers] = useState([]);
+    const [filterData, setFilterData] = useState([]);
+
+
 
     useEffect(() => {
-        // Filter images based on selected tag
-        setFilteredImages(tag === 'Show All' ? imageBlog : imageBlog.filter(image => image.tag.includes(tag)))
-    }, [tag]);
+        axiosInstance.get(`api/admin/v1/gallery/getAllImages`)
+        
+        .then((response) => {
+            const sortedData = response.data.data.rows.sort((a, b) => {
+                // Convert id values to numbers for comparison
+                const idA = parseInt(a.id);
+                const idB = parseInt(b.id);
+                
+                // Compare the numeric values of the ids
+                if (idA < idB) {
+                    return -1; // idA comes before idB
+                } else if (idA > idB) {
+                    return 1; // idA comes after idB
+                } else {
+                    return 0; // ids are equal
+                }
+            });
+            setTeamMembers(sortedData);
+        })
+            .catch((error) => {
+                console.error('Error fetching team data:', error);
+            });
+    }, []);
+
+    useEffect(() => {
+    }, [teamMembers]); 
+
+    const filteredTeamMembers = useMemo(() => {
+        return branchData?.id
+          ? teamMembers.filter(data => data.region_id === branchData.id)
+          : teamMembers.filter(data => data.isShowOnHomePage);
+      }, [branchData, teamMembers]);
+      
+      useEffect(() => {
+        setFilterData(
+          tag.label !== 'Show All' ? filteredTeamMembers.filter(e => e.category === tag.value) : filteredTeamMembers
+        );
+      }, [tag, filteredTeamMembers]);
+      console.log(filterData, filteredTeamMembers, filteredTeamMembers.filter(e => e.category === tag.value), tag)
 
     return (
         <div className="section-full content-inner">
@@ -82,8 +131,8 @@ function FilterTab({ branchData, activitiesData }: ActivitiesProps) {
                             <div className="site-filters filter-style1 clearfix m-b20">
                                 <ul className="filters" data-toggle="buttons">
                                     {/* Render tag list */}
-                                    {['Show All', 'English', 'Art', 'Math', 'Physical Education'].map((name, index) => (
-                                        <TagLi key={index} name={name} handlesettag={setTag} tagActive={tag === name} />
+                                    {filterOptions.map((name, index) => (
+                                        <TagLi key={index} name={name} handlesettag={setTag} tagActive={tag.label === name.label} />
                                     ))}
                                 </ul>
                             </div>
@@ -95,15 +144,15 @@ function FilterTab({ branchData, activitiesData }: ActivitiesProps) {
                 <SRLWrapper >
                     <div className="row dlab-gallery-listing gallery-grid-4 gallery mfp-gallery" data-wow-duration="2s" data-wow-delay="0.2s">
                         {/* Render filtered images */}
-                        {filteredImages.map((item, index) => (
+                        {filterData.map((item, index) => (
                             <div className="Art card-container col-lg-3 col-md-6 col-sm-6 wow zoomIn" key={index}>
-                                <div className="dlab-box frame-box m-b30">
+                                <div className="dlab-box  m-b30">
                                     <div className="dlab-thum dlab-img-overlay1">
-                                        <img src={item.Large_img} alt="" />
+                                        <img src={`${baseUrl}${item.image}`}alt="" style={{maxHeight:'200px',width:"100%",textAlign:'center'}} />
                                         <div className="overlay-bx">
                                             <div className="overlay-icon">
                                                 {/* Pass imageToOpen prop */}
-                                                <Iconimage imageToOpen={item.Large_img} />
+                                                <Iconimage imageToOpen={`${baseUrl}${item.image}`} />
                                             </div>
                                         </div>
                                     </div>
@@ -118,16 +167,15 @@ function FilterTab({ branchData, activitiesData }: ActivitiesProps) {
 }
 
 // TagLi component
-const TagLi = ({ name, handlesettag, tagActive }: { name: string; handlesettag: Function; tagActive: boolean }) => {
+const TagLi = ({ name, handlesettag, tagActive }: { name: any; handlesettag: Function; tagActive: boolean }) => {
     return (
         <li className={`tag ${tagActive ? 'btn active' : 'btn'}`} onClick={() => handlesettag(name)}>
             <input type="radio" />
-            <a><span>{name}</span></a>
+            <a><span>{name.label}</span></a>
         </li>
     );
 };
 
-// Parent component responsible for fetching data
 const ParentComponent = () => {
     const [activitiesData, setActivitiesData] = useState<ActivitiesData[]>([]);
 
