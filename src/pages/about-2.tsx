@@ -98,7 +98,7 @@
 // 							<div className="container">
 // 								<div className="section-head text-center">
 // 									<h2 className="head-title text-secondry">About the Teachers</h2>
-// 									<p>We have an excellent teacher to child ratio at our Kindergarten to ensure that each child receives the attention he or she needs</p>
+// 									<p>We have an excellent teacher to child ratio to ensure that each child receives the attention he or she needs</p>
 // 								</div>
 // 								<TeacherSlider />
 // 							</div>
@@ -124,7 +124,7 @@
 // 							<div className="container">
 // 								<div className="section-head text-center">
 // 									<h2 className="head-title text-secondry">From the Blog</h2>
-// 									<p>We have an excellent teacher to child ratio at our Kindergarten to ensure that each child receives the attention he or she needs</p>
+// 									<p>We have an excellent teacher to child ratio to ensure that each child receives the attention he or she needs</p>
 // 								</div>
 // 								<FromSlider />
 // 							</div>
