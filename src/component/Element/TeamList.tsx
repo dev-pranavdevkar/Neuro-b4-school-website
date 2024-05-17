@@ -59,7 +59,7 @@ const filterOptions=[
                     <div className="section-head text-center">
                         <h2 className="head-title text-secondry">About the Team</h2>
                         <p>
-                            We have an excellent teacher to child ratio at our Kindergarten to ensure that each child receives the attention he or she needs
+                            We have an excellent teacher to child ratio to ensure that each child receives the attention he or she needs
                         </p>
                     </div>
                     <div className="row">
