@@ -93,7 +93,7 @@ const Branch = () => {
 								<div className="dlab-topbar-left">
 									<ul>
 
-										<li><i className="fa fa-phone m-r5"></i><a className='text-light' href={`tel:+${branchData?.mobile_number || '13154021234'}`}>{branchData?.mobile_number || '917773969004'}</a></li>
+										<li><i className="fa fa-phone m-r5"></i><a className='text-light' href={`tel:+${branchData?.mobile_number || '13154021234'}`}>{branchData?.mobile_number || '13154021234'}</a></li>
 
 
 										<li>

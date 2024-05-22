@@ -73,9 +73,9 @@ function FilterTab({ branchData, activitiesData }: ActivitiesProps) {
     return (
         <div className="section-full content-inner">
             <div className="container-fluid">
-                <div className="section-head text-center">
+                {/* <div className="section-head text-center">
                     <h2 className="head-title text-secondry">Activities of B4-School</h2>
-                </div>
+                </div> */}
                 <div className="clearfix" id="lightgallery">
                     <div className="row">
                         <div className="col-lg-12 text-center">
