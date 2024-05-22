@@ -45,7 +45,13 @@ const TeamList: React.FC<TeamListProps> = ({ branchData }) => {
     ? teamMembers.filter(data => data.region_id === branchData.id)
     : teamMembers.filter(data => data.isShowOnHomePage);
 
-
+const filterOptions=[
+    {label:'All Shows',value:'all_shows'},
+    {label:'All Shows',value:'all_shows'},
+    {label:'All Shows',value:'all_shows'},
+    {label:'All Shows',value:'all_shows'},
+    {label:'All Shows',value:'all_shows'},
+]
     return (
         <div>
             <div className="section-full bg-white content-inner" style={{ backgroundImage: "url(" + bnr1 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>

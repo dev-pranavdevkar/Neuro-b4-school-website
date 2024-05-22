@@ -16967,3 +16967,16 @@ box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0
     list-style: none;
     padding-left:1rem
  }
+ .activity-img{
+    max-height: 300px;
+    object-fit: contain;
+
+ }
+ .activity-card{
+    border: none;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+ }
+ .activity-card .card-body{
+    padding: 0.5rem;
+ }
