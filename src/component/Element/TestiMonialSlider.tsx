@@ -75,7 +75,7 @@ const TestimonialSlider: React.FC<TestimonialProps> = ({ branchData }) => {
 									</div>
 								</div>
 								<h5 className="testimonial-name m-t0 m-b5">{item.name}</h5>
-								<span>Parents Of {item.role}</span>
+								<span>Parent of {item.role}</span>
 							</div>
 							<div className="testimonial-text">
 								<p>{item.comment}</p>

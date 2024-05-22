@@ -54,13 +54,13 @@ const Locations = () => {
         <Fragment>
             <Header />
             <div className="page-content">
-                <PageTitle motherMenu="Locations" activeMenu="Locations" />
+                <PageTitle motherMenu="Our Branches Around The World" activeMenu="Locations" />
                 <div className="content-block">
                     <div className="section-full bg-white content-inner-1">
                         <div className="container">
-                            <div className="section-head text-center col-md-12">
-                                <h2 className="text-secondry">Our Branches Around the World</h2>
-                            </div>
+                            {/* <div className="section-head text-center col-md-12">
+                                <h2 className="text-secondry">Our Branches Around The World</h2>
+                            </div> */}
                             <div className='row'>
                                 {country.map((country, index) => (
                                     <div className='col-lg-3 mb-4' key={index}>
