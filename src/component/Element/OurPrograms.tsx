@@ -46,26 +46,41 @@ const Programs: React.FC<ProgramsProps> = ({ branchData }) => {
             <div className="section-full bg-white content-inner-2 about-box" style={{ backgroundImage: "url(" + bgimg1 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
                 <div className="container">
                     <div className="row">
-                        <div className="col-lg-7 col-md-12 col-sm-12 col-12">
-                            <div className="section-head">
+                        <div className="col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div className="section-head text-center">
                                 <h2 className="head-title text-secondry">Our Programs</h2>
                                 <p>
                                     Developing vocabulary, attention span, reading and writing skills with innovative methods and preparing for primary school.
                                 </p>
-                                <Link href={"/programs"} className="btn btn-md kids-btn radius-xl">Read More</Link>
+                                {/* <Link href={"/programs"} className="btn btn-md kids-btn radius-xl">Read More</Link> */}
                             </div>
                         </div>
-                        <div className="col-lg-5 col-md-12 col-sm-12 col-12">
-                            {filteredProgramsData.map((item, index) => (
-                                <div className="icon-bx-wraper left" key={index}>
-                                    <div className="icon-lg m-b20"> <span className="icon-cell"><i className="flaticon-rattle text-blue" /></span> </div>
-                                    <div className="icon-content">
-                                        <h2 className="dlab-tilte">{item.name}</h2>
-                                        <p>{item.description}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                    </div>
+                    <div className='row'>
+
+                        {filteredProgramsData.map((data, index) => (
+                               <div className="col-lg-4 col-md-6 col-sm-6 mb-5" key={index}>
+                               <div className="class-item h-100 ">
+                                   <div className="class-media"> 
+                                       <img  src={`${baseUrl}${data?.image}`} alt="" style={{maxHeight:'250px'}}/>
+                                       <p>
+                                           <span>Program At: </span> 
+                                           {data?.region?.name || "In All Branches"}
+                                       </p>
+                                   </div>
+                                   <div className="class-info">
+                                       <h4><Link href={"#"}>{data?.name}</Link></h4>
+                                       <p>{data?.description}</p>
+                                       {/* <ul className="schedule">
+                                           <li className="bg-blue class-size"><span>Class Size</span> <span>30 - 40</span> </li>
+                                           <li className="bg-green years-old"><span>Years Old</span> <span>5 - 6</span> </li>
+                                           <li className="bg-orange tution"><span>Tuition Fee</span> <span>$1500</span> </li>
+                                       </ul> */}
+                                   </div>
+                               </div>
+                           </div>
+                        ))}
+
                     </div>
                 </div>
             </div>

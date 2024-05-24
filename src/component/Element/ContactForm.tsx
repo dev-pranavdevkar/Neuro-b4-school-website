@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import axiosInstance from '@/services/axios';
+import { useRouter } from 'next/router';
 
 interface ContactFormProps {
     branchData: BranchData | null;
@@ -57,7 +58,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ branchData }) => {
             console.log(error);
         }
     };
-
+    const router = useRouter();
+    const path = router.pathname;
     return (
 
 
@@ -77,7 +79,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ branchData }) => {
                             </div>
                             <div className="icon-content">
                                 <h4 className="dlab-tilte m-b5">Phone</h4>
-                                <p><a href={`tel:+${branchData?.mobile_number || '13154021234'}`}>{branchData?.mobile_number || '13154021234'}</a> <br /><br /></p>
+                                <p><a href={`tel:+${branchData?.mobile_number || '13154021234'}`}>{branchData?.mobile_number || '+1 (315) 402-1234'}</a> <br /><br /></p>
                             </div>
                         </div>
                     </div>
@@ -90,9 +92,24 @@ const ContactForm: React.FC<ContactFormProps> = ({ branchData }) => {
                             </div>
                             <div className="icon-content">
                                 <h4 className="dlab-tilte m-b5">Address</h4>
-                                <p><a href={`${branchData?.map_url || 'https://www.google.com/maps/'}`} target='_blank'>{branchData?.address || '28 Princeton Drive'},<br/
-                                >{branchData?.City?.name || 'Syosset'}, {branchData?.State?.name || 'New York'},<br/>
-                                {branchData?.Country?.name || 'USA'}-{branchData?.google_plus_url || '11791'},
+                                <p><a href={`${branchData?.map_url || 'https://www.google.com/maps/'}`} target='_blank'>
+                                    {/* {branchData?.City?.name}, {branchData?.State?.name},<br/>
+                                {branchData?.Country?.name}-{branchData?.google_plus_url}  || 28 Princeton Drive <br/>Syosset, New York<br/> USA 11791 */}
+                                    {path === '/contact-us'
+                                        ? (
+                                            <>
+                                                28 Princeton Drive <br />
+                                                Syosset, New York<br />
+                                                USA 11791
+                                            </>
+                                        )
+                                        : (
+                                            <>
+                                                {branchData?.City?.name}, {branchData?.State?.name},<br />
+                                                {branchData?.Country?.name}-{branchData?.google_plus_url}
+                                            </>
+                                        )
+                                    }
                                 </a>
                                 </p>
                             </div>
@@ -107,14 +124,14 @@ const ContactForm: React.FC<ContactFormProps> = ({ branchData }) => {
                             </div>
                             <div className="icon-content">
                                 <h4 className="dlab-tilte m-b5">Email</h4>
-                                <p><a href={`mailto:${branchData?.email || 'contact@b4-school.com'}`} target='_blank'>{branchData?.email || 'contact@b4-school.com' }</a> <br /><br /></p>
+                                <p><a href={`mailto:${branchData?.email || 'contact@b4-school.com'}`} target='_blank'>{branchData?.email || 'contact@b4-school.com'}</a> <br /><br /></p>
                             </div>
                         </div>
                     </div>
                 </div>
-            
+
                 <div className="row contact-box content-inner-5">
-                    
+
                     <div className="dzFormMsg"></div>
                     <form method="post" className="dzForm col-md-12" ref={form} onSubmit={handleSubmit(onSubmit)} >
                         <input type="hidden" value="Contact" name="dzToDo" />
