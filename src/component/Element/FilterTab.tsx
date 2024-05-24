@@ -73,6 +73,7 @@ function FilterTab({ branchData, activitiesData }: ActivitiesProps) {
     { label: "Art", value: "art" },
     { label: "Math", value: "math" },
     { label: "Physical Education", value: "physical-education" },
+    { label: "Events", value: "events" },
   ];
   const [tag, setTag] = useState(filterOptions[0]);
   // const [filteredImages, setFilteredImages] = useState<{ Large_img: string; tag: string[]; }[]>([]);
