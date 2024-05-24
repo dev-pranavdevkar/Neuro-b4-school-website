@@ -21,6 +21,11 @@ const iconBlog = [
 
 ];
 
+const filteredProgramsData = [
+	{name:'Preschool Programs',description:'Developing vocabulary, attention span, reading and writing skills with innovative methods and preparing for primary school.'},
+	{name:'Child Watch',description:'We watch your child as you do.'}
+]
+
 
 const bgimg1 = '/images/line.png'
 const bgimg2 = '/images/background/bg1.jpg'
@@ -57,7 +62,34 @@ class Index1 extends Component {
 						<EducationBanner />
 
 
-						<OurPrograms branchData={null} />
+						{/* <OurPrograms branchData={null} /> */}
+						<div className="section-full bg-white content-inner-2 about-box" style={{ backgroundImage: "url(" + bgimg1 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
+								<div className="container">
+									<div className="row">
+										<div className="col-lg-7 col-md-12 col-sm-12 col-12">
+											<div className="section-head">
+												<h2 className="head-title text-secondry">Our Programs</h2>
+												<p>
+													Developing vocabulary, attention span, reading and writing skills with innovative methods and preparing for primary school.
+												</p>
+												<Link href={"/programs"} className="btn btn-md kids-btn radius-xl">Read More</Link>
+											</div>
+										</div>
+										<div className="col-lg-5 col-md-12 col-sm-12 col-12">
+											{filteredProgramsData.map((item, index) => (
+												<div className="icon-bx-wraper left" key={index}>
+													<div className="icon-lg m-b20"> <span className="icon-cell"><i className="flaticon-rattle text-blue" /></span> </div>
+													<div className="icon-content">
+														<h2 className="dlab-tilte">{item.name}</h2>
+														<p>{item.description}</p>
+													</div>
+												</div>
+											))}
+										</div>
+									</div>
+								</div>
+							</div>
+						
 						{/* <EducationBanner /> */}
 
 						{/* <div className="section-full bg-white content-inner-1 text-center">

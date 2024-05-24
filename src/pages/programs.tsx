@@ -43,18 +43,18 @@ const Programs = () => {
                         <div className="container">
                             <div className="row sp40">
                                 {programsData.map((data, index) => (
-                                    <div className="col-lg-4 col-md-6 col-sm-6" key={index}>
-                                        <div className="class-item ">
+                                    <div className="col-lg-4 col-md-6 col-sm-6 mb-5" key={index}>
+                                        <div className="class-item h-100 ">
                                             <div className="class-media"> 
-                                                <img src={`${baseUrl}${data.image}`} alt=""/>
+                                                <img  src={`${baseUrl}${data?.image}`} alt="" style={{maxHeight:'250px'}}/>
                                                 <p>
                                                     <span>Program At: </span> 
-													{data.region.name || "In All Branches"}
+													{data?.region?.name || "In All Branches"}
                                                 </p>
                                             </div>
                                             <div className="class-info">
-                                                <h4><Link href={"#"}>{data.name}</Link></h4>
-                                                <p>{data.description}</p>
+                                                <h4><Link href={"#"}>{data?.name}</Link></h4>
+                                                <p>{data?.description}</p>
                                                 {/* <ul className="schedule">
                                                     <li className="bg-blue class-size"><span>Class Size</span> <span>30 - 40</span> </li>
                                                     <li className="bg-green years-old"><span>Years Old</span> <span>5 - 6</span> </li>
