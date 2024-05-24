@@ -92,7 +92,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ branchData }) => {
                                 <h4 className="dlab-tilte m-b5">Address</h4>
                                 <p><a href={`${branchData?.map_url || 'https://www.google.com/maps/'}`} target='_blank'>{branchData?.address || '28 Princeton Drive'},<br/
                                 >{branchData?.City?.name || 'Syosset'}, {branchData?.State?.name || 'New York'},<br/>
-                                {branchData?.Country?.name || ' 11791'}
+                                {branchData?.Country?.name || 'USA'}-{branchData?.google_plus_url || '11791'},
                                 </a>
                                 </p>
                             </div>
