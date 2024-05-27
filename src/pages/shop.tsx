@@ -1,4 +1,4 @@
-import React,{Fragment, Component} from 'react';
+import React, { Fragment, Component } from 'react';
 import Link from 'next/link';
 import Header from '@/component/Layout/Header';
 import Footer from '@/component/Layout/Footer';
@@ -12,7 +12,7 @@ const bnr1 = '/images/line2.png';
 
 
 
-class Shop extends Component{
+class Shop extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -34,30 +34,30 @@ class Shop extends Component{
 				this.setState({ error: 'Failed to fetch product data' });
 			});
 	}
-	
 
-	render(){
+
+	render() {
 		const { productData, error, currentPage, itemsPerPage } = this.state;
 		const indexOfLastItem = currentPage * itemsPerPage;
 		const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 		const currentItems = productData.slice(indexOfFirstItem, indexOfLastItem);
 		const totalPages = Math.ceil(productData.length / itemsPerPage);
-		return(
+		return (
 			<Fragment>
 				<Header />
 				<div className="page-content">
-					<PageTitle  motherMenu="Shop"  activeMenu="Shop" />
+					<PageTitle motherMenu="Shop" activeMenu="Shop" />
 					<div className="content-block">
-						<div className="section-full bg-white content-inner" style={{backgroundImage:"url("+ bnr1+")", backgroundSize:"contain",backgroundRepeat: "no-repeat",backgroundPosition: "center"}}>
+						<div className="section-full bg-white content-inner" style={{ backgroundImage: "url(" + bnr1 + ")", backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
 							<div className="container">
 								<div className="row sp40">
-									{productData.map((data, index)=>(
+									{productData.map((data, index) => (
 										<div className="col-lg-4 col-md-6 col-sm-6" key={index}>
 											<div className="class-item">
-												<div className="class-media"> 
-													<img className='product-img' src={`${baseUrl}${data.image}`} alt=""/>
+												<div className="class-media">
+													<img className='product-img' src={`${baseUrl}${data.image}`} alt="" />
 													<p>
-														<span>Avilable in </span> 
+														<span>Avilable in </span>
 														{data.availability}
 													</p>
 												</div>
@@ -69,16 +69,16 @@ class Shop extends Component{
 														<li className="bg-green years-old"><span>Reviews</span> <span>{data.rating}.0</span> </li>
 														<li className="bg-orange tution"><span>Price</span> <span>${data.price}</span> </li>
 													</ul>
-                                                  <div>
-                                               <a href="http://">  <button type="button" className="btn btn-primary w-100 mt-2 buy-now-btn">Buy Now</button></a>
-                                                  </div>
+													<div>
+														<a href={data.link}>  <button type="button" className="btn btn-primary w-100 mt-2 buy-now-btn">Buy Now</button></a>
+													</div>
 												</div>
 											</div>
 										</div>
-									))}	
+									))}
 								</div>
 							</div>
-						</div>	
+						</div>
 					</div>
 				</div>
 				<Footer />
